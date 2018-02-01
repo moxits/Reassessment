@@ -1,28 +1,38 @@
-const { Pool, Client } = require('pg')
-
-const pool = new Pool({
-  user: 'postgres',
+const Sequelize = require('sequelize');
+const sequelize = new Sequelize('postgres', 'postgres', 'moxit1998', {
   host: 'localhost',
-  database: 'test',
-  password: 'moxit1998',
-  port: 5432,
-})
+  dialect: 'postgres',
+  pool: {
+    max: 9,
+    min: 0,
+    idle: 10000
+  }
+});
 
-pool.query('SELECT NOW()', (err, res) => {
-  console.log(err, res)
-  pool.end()
-})
+sequelize.authenticate().then(() => {
+  console.log("Success!");
+  var Posts = sequelize.define('posts', {
+    title: {
+      type: Sequelize.STRING
+    },
+    content: {
+      type: Sequelize.STRING
+    }
+  }, {
+    freezeTableName: true
+  });
 
-const client = new Client({
-  user: 'postgres',
-  host: 'localhost:5432',
-  database: 'test',
-  password: 'moxit1998',
-  port: 5432,
-})
-client.connect()
-
-client.query('SELECT NOW()', (err, res) => {
-  console.log(err, res)
-  client.end()
-})
+  Posts.sync({force: true}).then(function () {
+    return Posts.create({
+      title: 'Getting Started with PostgreSQL and Sequelize',
+      content: 'Hello there'
+    });
+  });
+  Posts.findAll({}).then((data) => {
+    console.log(data);
+  }).catch((err) => {
+    console.log(err);
+  });
+}).catch((err) => {
+  console.log(err);
+});
