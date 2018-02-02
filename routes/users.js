@@ -8,11 +8,11 @@ var passwordHash = require('password-hash');
 router.get('/', function(req, res, next) {
   res.send('respond with a resource');
 });
-router.post('/registerPersonal',function(req,res){
+router.post('/register',function(req,res){
     var hashed = passwordHash.generate(req.body.password);
     const query = {
-      text: 'INSERT INTO personal(name,email,password) VALUES($1,$2,$3) RETURNING *',
-      values: [req.body.name,req.body.email,hashed]
+      text: 'INSERT INTO users(type,name,email,password) VALUES($1,$2,$3,$4) RETURNING *',
+      values: [req.body.type,req.body.name,req.body.email,hashed]
     }
     currentClient.query(query,(err,result)=> {
       if (err){
@@ -22,18 +22,5 @@ router.post('/registerPersonal',function(req,res){
       }
     });
 });
-router.post('/registerBusiness',function(req,res){
-  var hashed = passwordHash.generate(req.body.password);
-  const query = {
-    text: 'INSERT INTO business(name,email,password) VALUES($1,$2,$3) RETURNING *',
-    values: [req.body.name,req.body.email,hashed]
-  }
-  currentClient.query(query,(err,result)=> {
-    if (err){
-        console.log(err);
-    }else{
-      console.log("USER ID:",result.rows[0]);
-    }
-  });
-});
+
 module.exports = router;

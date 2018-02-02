@@ -13,8 +13,8 @@ var currentClient = new function() {
         client.connect((err)=> {
             if(!err){
                 console.log('CLIENT CONNECTED TO: '+ connectionString);
-                client.query('CREATE TABLE IF NOT EXISTS personal(id SERIAL PRIMARY KEY, name VARCHAR(50), email VARCHAR(100), password VARCHAR(100))');
-                client.query('CREATE TABLE IF NOT EXISTS business(id SERIAL PRIMARY KEY, name VARCHAR(50), email VARCHAR(100), password VARCHAR(100))');
+                client.query('CREATE TABLE IF NOT EXISTS users(id SERIAL PRIMARY KEY,type VARCHAR(50),name VARCHAR(50), email VARCHAR(100), password VARCHAR(100))');
+                
             }
         });
     }
