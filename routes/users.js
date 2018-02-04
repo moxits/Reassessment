@@ -22,5 +22,26 @@ router.post('/register',function(req,res){
       }
     });
 });
-
+router.post('/login',function(req,res,next){
+    const query = {
+      text: 'SELECT * FROM users WHERE email = $1',
+      values: [req.body.email]
+    }
+    currentClient.query(query,(err,result)=>{
+      if (err){
+        console.log(err);
+      }else{
+        if (result.rows.length == 0){
+          console.log("NOT FOUND");
+        }
+        else{
+          if (passwordHash.verify(req.body.password,result.rows[0].password))
+          {
+            req.session.user = result.rows[0];
+            res.send("SUCCESS");
+          }
+        }
+      }
+    });
+});
 module.exports = router;

@@ -26,6 +26,11 @@ app.use(sessions({
 	secure: true,     //ensures cookies are only used over HTTPS
 	ephemeral: true   //deletes the cookie when the browser is closed
 }));
+app.use(function(req,res,next){
+  if (req.session && req.session.user){
+
+  }
+});
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));
