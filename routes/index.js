@@ -11,5 +11,10 @@ router.get('/signup-page',function(req,res,next){
 router.get('/login-page',function(req,res,next){
   res.render('login');
 });
+router.get('/personal-profile',function(req,res,next){
+  if (err){console.log(err);}
+  res.render('personalprofile');
+});
+
 
 module.exports = router;

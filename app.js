@@ -28,7 +28,25 @@ app.use(sessions({
 }));
 app.use(function(req,res,next){
   if (req.session && req.session.user){
-
+    const query = {
+      text: 'SELECT * FROM users WHERE email = $1',
+      values:[req.session.user.email]
+    }
+    currentClient.query(query,(err,result)=> {
+      if (err){
+        console.log(err);
+      }else{
+        if (result.rows.length != 0){
+          req.user = result.rows[0];
+          delete req.user.password;
+          req.session.user = result.rows[0];
+          res.locals.user = result.rows[0];
+        }
+      }
+      next();
+     });
+  }else{
+    next();
   }
 });
 // uncomment after placing your favicon in /public

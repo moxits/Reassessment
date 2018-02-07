@@ -31,14 +31,18 @@ router.post('/login',function(req,res,next){
       if (err){
         console.log(err);
       }else{
-        if (result.rows.length == 0){
-          console.log("NOT FOUND");
+        if (result.rows.length === 0){
+          res.send("NOT FOUND");
         }
         else{
           if (passwordHash.verify(req.body.password,result.rows[0].password))
           {
             req.session.user = result.rows[0];
-            res.send("SUCCESS");
+            res.redirect("/personal-profile");
+            //res.render("/personal-profile",{user:result.rows[0]});
+          }
+          else{
+            res.send("INCORRECT PASSWORD");
           }
         }
       }
