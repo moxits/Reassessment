@@ -12,9 +12,9 @@ $('#register-button').click(function(){
             type:"POST",
         }).done(function(json){
             if (newUser.type == 'Personal'){
-                window.location.replace("/personal-profile");}
-            else{
-                window.location.replace("/");
+                window.location.replace("/personal-profile");
+            }else{
+                window.location.replace("/business-profile");
             }
         })
 });

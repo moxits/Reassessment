@@ -1,6 +1,7 @@
 var User;
 $('#login-button').click(function(){
     User = {    
+        type:$('input[type=radio]:checked').val(),
         email:$('input[name=email]').val(),
         password:$('input[name=password]').val()
     };
@@ -17,7 +18,11 @@ $('#login-button').click(function(){
                 alert('Email does not exist');
             }
             else{
-                window.location.replace("/personal-profile");
+                if (User.type == 'Personal'){
+                    window.location.replace("/personal-profile");
+                }else{
+                    window.location.replace("/business-profile");
+                }
             }
         })
 });         

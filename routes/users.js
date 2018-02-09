@@ -32,11 +32,20 @@ router.post('/register',function(req,res){
     });
 });
 router.post('/login',function(req,res,next){
-    const query = {
-      text: 'SELECT * FROM users WHERE email = $1',
-      values: [req.body.email]
+    var query;
+    if (req.body.type == 'Personal'){
+      query = {
+        text: 'SELECT * FROM personal WHERE email = $1',
+        values: [req.body.email]
+      }
+    }else{
+      query = {
+        text: 'SELECT * FROM business WHERE email = $1',
+        values:[req.body.email]
+      }
     }
     currentClient.query(query,(err,result)=>{
+      console.log(result);
       if (err){
         console.log(err);
       }else{
@@ -47,8 +56,12 @@ router.post('/login',function(req,res,next){
           if (passwordHash.verify(req.body.password,result.rows[0].password))
           {
             req.session.user = result.rows[0];
-            res.redirect("/personal-profile");
-            //res.render("/personal-profile",{user:result.rows[0]});
+            if (result.rows[0].type == 'Personal'){
+              console.log("here");
+              res.redirect("/personal-profile");
+            }else{
+              res.redirect("/business-profile");
+            }
           }
           else{
             res.send("INCORRECT PASSWORD");
@@ -59,7 +72,7 @@ router.post('/login',function(req,res,next){
 });
 router.post('/update-personal',function(req,res,next){
   const query1 = {
-    text: 'SELECT * FROM users WHERE email = $1',
+    text: 'SELECT * FROM personal WHERE email = $1',
     values: [req.session.user.email]
   }
   currentClient.query(query1,(err,result)=>{
@@ -70,7 +83,7 @@ router.post('/update-personal',function(req,res,next){
     if (req.body.newpassword != ''){ hashed = passwordHash.generate(req.body.newpassword);}
     else{hashed = passwordHash.generate(req.body.password);}
     const query2 = {
-      text: 'UPDATE users SET name = $1,email=$2,password=$3,zipcode=$4,city=$5,state=$6 WHERE email=$7',
+      text: 'UPDATE personal SET name = $1,email=$2,password=$3,zipcode=$4,city=$5,state=$6 WHERE email=$7',
       values:[req.body.name,req.body.email,hashed,req.body.zipcode,req.body.city,req.body.state,req.session.user.email]
     }
     currentClient.query(query2,(err,result)=>{

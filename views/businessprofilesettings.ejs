@@ -105,7 +105,7 @@
 
 
         <div class="arrange_unit arrange_unit--fill">
-            <span class="titled-nav_link-label">Profile</span>
+            <span class="titled-nav_link-label">Business Profile</span>
         </div>
 
 
@@ -138,7 +138,7 @@
             <div class="profile-bio">
 
                 <div class="ysection">
-                    <h4>Your Profile Photo
+                    <h4>Business Profile Photo
                         <strong><a href="/user_photos?return_url=/profile">(Add/Edit)</a></strong>
                     </h4>
                         
@@ -153,7 +153,7 @@
     </div>
 
                 </div>
-                                <label for="name" >Name</label>
+                                <label for="name" >Business Name</label>
 
         <span class="help-block">This field is required.</span>
     <input id="name" maxlength="32" name="name" placeholder="" size="30" type="text" value=<%=user.name %> required>
@@ -162,20 +162,39 @@
 
     <span class="help-block">This field is required.</span>
 <input id="email" maxlength="32" name="email" placeholder="" size="30" type="text" value=<%=user.email %> required>
+<label for="website" >Website</label>
+
+<span class="help-block">Enter your business's website.</span>
+<input id="website" maxlength="50" name="website" placeholder="" size="30" type="text">
+
+<label for="phone" >Phone Number</label>
+
+<span class="help-block">Enter your phone number in (xxx)xxx-xxxx format.</span>
+<input id="phone" maxlength="15" name="phone" placeholder="" size="30" type="text">
 
 <label for="zipcode" >Zip Code</label>
 
 <span class="help-block">This field is required.</span>
-<input id="zipcode" maxlength="5" name="zipcode" placeholder="" size="30" type="text" value=<%=user.zipcode %> required>
+<input id="zipcode" maxlength="5" name="zipcode" placeholder="" size="30" type="text" required>
+
+<label for="street-address">Street Address</label>
+<span class="help-block">This field is required.</span>
+<input id="street-address" maxlength="50" name="street-address" placeholder="" size="30" type="text" required>
 
 <label for="city" >City</label>
 
 <span class="help-block">This field is required.</span>
-<input id="city" maxlength="36" name="city" placeholder="" size="30" type="text" value= <%=user.city %> required>
+<input id="city" maxlength="36" name="city" placeholder="" size="30" type="text" required>
 <label for="state" >State</label>
 
-<span class="help-block">This field is required.Please use full state name.</span>
-<input id="state" maxlength="36" name="state" placeholder="" size="30" type="text" value=<%=user.state %> required>
+<span class="help-block">This field is required.Please use abbreviated state name.</span>
+<input id="state" maxlength="36" name="state" placeholder="" size="30" type="text" required>
+
+<label for="description" >Description of Business</label>
+
+<span class="help-block">Enter a short description of your business.</span>
+<input id="description" maxlength="36" name="description" placeholder="" size="30" type="text" required>
+<label for="state" >State</label>
 
 <label for="newpassword" >New Password</label>
 

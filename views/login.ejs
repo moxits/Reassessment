@@ -42,10 +42,16 @@
 <div class="testbox">
   <h1>Login</h1>
 
-  <form action="/">
+  <form>
       <hr>
 
   <hr>
+  <div class="accounttype">
+    <input type="radio" value="Personal" id="radioOne" name="account" checked/>
+    <label for="radioOne" class="radio" chec>Personal</label>
+    <input type="radio" value="Business" id="radioTwo" name="account" />
+    <label for="radioTwo" class="radio">Business</label>
+  </div>
   <label id="icon" for="email"><i class="icon-envelope "></i></label>
   <input type="text" name="email" id="email" placeholder="Email" required/>
   <label id="icon" for="password"><i class="icon-shield"></i></label>
