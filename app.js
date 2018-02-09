@@ -28,9 +28,17 @@ app.use(sessions({
 }));
 app.use(function(req,res,next){
   if (req.session && req.session.user){
-    const query = {
-      text: 'SELECT * FROM users WHERE email = $1',
-      values:[req.session.user.email]
+    var query;
+    if (req.session.user.type == "Personal"){
+      query = {
+        text: 'SELECT * FROM personal WHERE email = $1',
+        values:[req.session.user.email]
+      }
+    }else{
+      query = {
+        text: 'SELECT * FROM business WHERE email = $1',
+        values:[req.session.user.email]
+      }
     }
     currentClient.query(query,(err,result)=> {
       if (err){

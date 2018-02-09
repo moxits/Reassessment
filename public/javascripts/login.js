@@ -17,7 +17,7 @@ $('#login-button').click(function(){
                 alert('Email does not exist');
             }
             else{
-                console.log("SUCCESS");
+                window.location.replace("/personal-profile");
             }
         })
 });         

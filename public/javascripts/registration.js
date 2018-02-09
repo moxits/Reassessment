@@ -10,5 +10,11 @@ $('#register-button').click(function(){
             url:"/users/register",
             data: newUser,
             type:"POST",
-        });
+        }).done(function(json){
+            if (newUser.type == 'Personal'){
+                window.location.replace("/personal-profile");}
+            else{
+                window.location.replace("/");
+            }
+        })
 });

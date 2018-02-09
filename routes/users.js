@@ -10,15 +10,24 @@ router.get('/', function(req, res, next) {
 });
 router.post('/register',function(req,res){
     var hashed = passwordHash.generate(req.body.password);
-    const query = {
-      text: 'INSERT INTO users(type,name,email,password) VALUES($1,$2,$3,$4) RETURNING *',
+    var query;
+    if (req.body.type == "Personal"){
+    query = {
+      text: 'INSERT INTO personal(type,name,email,password) VALUES($1,$2,$3,$4) RETURNING *',
       values: [req.body.type,req.body.name,req.body.email,hashed]
+      }
+    }else{
+      query = {
+        text: 'INSERT INTO business(type,name,email,password) VALUES($1,$2,$3,$4) RETURNING *',
+        values: [req.body.type,req.body.name,req.body.email,hashed]
+        }
     }
     currentClient.query(query,(err,result)=> {
       if (err){
           console.log(err);
       }else{
-        console.log("USER ID:",result.rows[0]);
+        req.session.user = result.rows[0];
+        res.send(result[0]);
       }
     });
 });
@@ -47,5 +56,31 @@ router.post('/login',function(req,res,next){
         }
       }
     });
+});
+router.post('/update-personal',function(req,res,next){
+  const query1 = {
+    text: 'SELECT * FROM users WHERE email = $1',
+    values: [req.session.user.email]
+  }
+  currentClient.query(query1,(err,result)=>{
+    if(err){console.log(err);}
+    if (passwordHash.verify(req.body.password,result.rows[0].password)){
+      console.log(result.rows[0]);
+    var hashed;
+    if (req.body.newpassword != ''){ hashed = passwordHash.generate(req.body.newpassword);}
+    else{hashed = passwordHash.generate(req.body.password);}
+    const query2 = {
+      text: 'UPDATE users SET name = $1,email=$2,password=$3,zipcode=$4,city=$5,state=$6 WHERE email=$7',
+      values:[req.body.name,req.body.email,hashed,req.body.zipcode,req.body.city,req.body.state,req.session.user.email]
+    }
+    currentClient.query(query2,(err,result)=>{
+        if (err) {console.log(error);}
+        else{
+          req.session.user = result.rows[0];
+          res.send("SUCCESS");
+        }
+    })
+    }
+    })
 });
 module.exports = router;

@@ -1,0 +1,207 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <title>ReviewR</title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link rel="stylesheet" href="https://s3-media2.fl.yelpcdn.com/assets/srv0/homepage/5a57af5e7478/assets/css/homepage-pkg.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+
+    
+  </head>
+  <body>
+    
+  <noscript>
+    <link rel="stylesheet" href="https://s3-media2.fl.yelpcdn.com/assets/srv0/svg_icons/1421d1203d09/assets/sprite.css">
+</noscript>
+<div id = "navbar-custom">
+    <nav  class="navbar navbar-expand-lg navbar-light bg-light">
+      <a class="navbar-brand" href="#">ReviewR</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <form class="form-inline my-2 my-lg-0">
+        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+      </form>
+    
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item active">
+            <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Link</a>
+          </li>
+         
+          <li class="nav-item">
+            <a class="nav-link disabled" href="#">Disabled</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+    </div>
+<div class="clearfix layout-block layout-n column--responsive account-settings_container">
+    <div class="column column-alpha column--responsive">
+            
+
+    <div class="titled-nav js-titled-nav">
+        
+    <input id="titled-nav-41ac6f7c-e0d7-49a0-828a-4739e411326c" class="titled-nav-dropdown_handler" type="checkbox" role="presentation">
+
+    <div class="titled-nav-dropdown hidden-non-responsive-block responsive-hidden-large">
+        <label for="titled-nav-41ac6f7c-e0d7-49a0-828a-4739e411326c" class="titled-nav-dropdown_trigger">
+            <span class="arrange arrange--middle titled-nav-dropdown_content">
+                <span class="arrange_unit arrange_unit--fill titled-nav-dropdown_shadow">
+                    <span class="titled-nav-dropdown_faded-title">
+                            <strong><%= user.name %>'s Account Settings</strong>
+
+                        Profile
+
+                    </span>
+                </span>
+
+                <span class="arrange_unit titled-nav-dropdown_icon">
+                    <span aria-hidden="true" style="width: 24px; height: 24px;" class="icon icon--24-chevron-down icon--size-24 titled-nav-dropdown_expand">
+    <svg class="icon_svg">
+        <use xlink:href="#24x24_chevron_down" />
+    </svg>
+</span>
+                    <span aria-hidden="true" style="width: 24px; height: 24px;" class="icon icon--24-chevron-up icon--size-24 titled-nav-dropdown_collapse">
+    <svg class="icon_svg">
+        <use xlink:href="#24x24_chevron_up" />
+    </svg>
+</span>
+                </span>
+            </span>
+        </label>
+    </div>
+
+
+        <div class="titled-nav_menus">
+                
+
+        <div class="titled-nav_menu">
+                <div class="titled-nav-header">
+        <div class="arrange arrange--top">
+
+            <div class="arrange_unit arrange_unit--fill">
+                <div class="titled-nav-header_content">
+                    <h3><%= user.name %> Account Settings</h3>
+                </div>
+            </div>
+
+            <div class="arrange_unit">
+            </div>
+
+        </div>
+    </div>
+
+            <ul class="titled-nav_items">
+                    
+
+    <li class="titled-nav_item">
+        <a class="titled-nav_link is-active" href="/profile">
+                <div class="titled-nav_link-content arrange arrange--middle arrange--6">
+
+
+        <div class="arrange_unit arrange_unit--fill">
+            <span class="titled-nav_link-label">Profile</span>
+        </div>
+
+
+        
+
+    </div>
+
+        </a>
+
+    </li>
+            </ul>
+        </div>
+
+            <div class="titled-nav-header responsive-hidden-large" role="presentation"></div>
+        </div>
+    </div>
+
+    </div>
+    <div class="column column-beta column--responsive">
+            <div class="account-settings_content">
+            <div class="section-header clearfix">
+        <h2>Profile</h2>
+    </div>
+
+
+
+
+    <div class="profile-bio yform yform-vertical-spacing">
+            
+            <div class="profile-bio">
+
+                <div class="ysection">
+                    <h4>Your Profile Photo
+                        <strong><a href="/user_photos?return_url=/profile">(Add/Edit)</a></strong>
+                    </h4>
+                        
+
+
+
+
+    <div class="photo-box pb-m">
+            <a class="js-analytics-click" data-analytics-label="user-photo" href="/user_photos?return_url=%2Fprofile">
+                <img alt="" class="photo-box-img" src="https://s3-media3.fl.yelpcdn.com/assets/srv0/yelp_styleguide/bf5ff8a79310/assets/img/default_avatars/user_medium_square.png">
+            </a>
+    </div>
+
+                </div>
+                                <label for="name" >Name</label>
+
+        <span class="help-block">This field is required.</span>
+    <input id="name" maxlength="32" name="name" placeholder="" size="30" type="text" value=<%=user.name %> required>
+
+    <label for="email" >Email</label>
+
+    <span class="help-block">This field is required.</span>
+<input id="email" maxlength="32" name="email" placeholder="" size="30" type="text" value=<%=user.email %> required>
+
+<label for="zipcode" >Zip Code</label>
+
+<span class="help-block">This field is required.</span>
+<input id="zipcode" maxlength="5" name="zipcode" placeholder="" size="30" type="text" required>
+
+<label for="city" >City</label>
+
+<span class="help-block">This field is required.</span>
+<input id="city" maxlength="36" name="city" placeholder="" size="30" type="text" required>
+<label for="state" >State</label>
+
+<span class="help-block">This field is required.Please use full state name.</span>
+<input id="state" maxlength="36" name="state" placeholder="" size="30" type="text" required>
+
+<label for="newpassword" >New Password</label>
+
+<span class="help-block">Update your password.</span>
+<input id="newpassword" maxlength="36" name="newpassword" placeholder="" size="30" type="password">
+
+<label for="password" >Password</label>
+
+<span class="help-block">Enter your current password and Submit to save changes.</span>
+<input id="password" maxlength="36" name="password" placeholder="" size="30" type="password" required>
+<button id="submit-button">Save Changes</button>
+
+     <!--           <button id="submit-button" class="ybtn ybtn--primary ybtn-full-responsive-small"><span>Save Changes</span></button>-->
+            </div>
+        </div>
+            </div>
+    </div>
+    </div>
+                    </div>
+                </div>
+                <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+                <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
+                <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
+                <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+                <script src="javascripts/personalprofilesettings.js"></script>
+</body>
+</html>
+
+      
