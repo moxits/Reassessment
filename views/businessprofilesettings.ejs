@@ -27,10 +27,10 @@
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
           <li class="nav-item active">
-            <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+            <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">Link</a>
+            <a class="nav-link" href="/users/logout">Logout</a>
           </li>
          
           <li class="nav-item">
@@ -165,34 +165,35 @@
 <label for="website" >Website</label>
 
 <span class="help-block">Enter your business's website.</span>
-<input id="website" maxlength="50" name="website" placeholder="" size="30" type="text">
+<input id="website" maxlength="50" name="website" placeholder="" size="30" type="text" value=<%=user.website %>>
 
 <label for="phone" >Phone Number</label>
 
 <span class="help-block">Enter your phone number in (xxx)xxx-xxxx format.</span>
-<input id="phone" maxlength="15" name="phone" placeholder="" size="30" type="text">
+<input id="phone" maxlength="15" name="phone" placeholder="" size="30" type="text" value=<%=user.phone %>>
 
 <label for="zipcode" >Zip Code</label>
 
 <span class="help-block">This field is required.</span>
-<input id="zipcode" maxlength="5" name="zipcode" placeholder="" size="30" type="text" required>
+<input id="zipcode" maxlength="5" name="zipcode" placeholder="" size="30" type="text" value=<%=user.zipcode %> required>
 
 <label for="street-address">Street Address</label>
 <span class="help-block">This field is required.</span>
-<input id="street-address" maxlength="50" name="street-address" placeholder="" size="30" type="text" required>
+<input id="street-address" maxlength="50" name="street-address" placeholder="" size="30" type="text" value=<%=user.address %> required>
 
 <label for="city" >City</label>
 
 <span class="help-block">This field is required.</span>
-<input id="city" maxlength="36" name="city" placeholder="" size="30" type="text" required>
+<input id="city" maxlength="36" name="city" placeholder="" size="30" type="text"  value=<%=user.city %> required>
 <label for="state" >State</label>
 
 <span class="help-block">This field is required.Please use abbreviated state name.</span>
-<input id="state" maxlength="36" name="state" placeholder="" size="30" type="text" required>
+<input id="state" maxlength="36" name="state" placeholder="" size="30" type="text" value=<%=user.state %> required>
 
 <label for="description" >Description of Business</label>
 <span class="help-block">Enter a short description of your business.</span>
-<textarea id="description"  name="description" placeholder=""  type="text" required>
+<textarea id="description"  name="description" placeholder=""  type="text"  required>
+<%=user.description %>
 </textarea>
 
 <label for="newpassword" >New Password</label>

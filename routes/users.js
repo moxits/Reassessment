@@ -45,7 +45,6 @@ router.post('/login',function(req,res,next){
       }
     }
     currentClient.query(query,(err,result)=>{
-      console.log(result);
       if (err){
         console.log(err);
       }else{
@@ -57,7 +56,6 @@ router.post('/login',function(req,res,next){
           {
             req.session.user = result.rows[0];
             if (result.rows[0].type == 'Personal'){
-              console.log("here");
               res.redirect("/personal-profile");
             }else{
               res.redirect("/business-profile");
@@ -78,7 +76,6 @@ router.post('/update-personal',function(req,res,next){
   currentClient.query(query1,(err,result)=>{
     if(err){console.log(err);}
     if (passwordHash.verify(req.body.password,result.rows[0].password)){
-      console.log(result.rows[0]);
     var hashed;
     if (req.body.newpassword != ''){ hashed = passwordHash.generate(req.body.newpassword);}
     else{hashed = passwordHash.generate(req.body.password);}
@@ -87,7 +84,7 @@ router.post('/update-personal',function(req,res,next){
       values:[req.body.name,req.body.email,hashed,req.body.zipcode,req.body.city,req.body.state,req.session.user.email]
     }
     currentClient.query(query2,(err,result)=>{
-        if (err) {console.log(error);}
+        if (err) {console.log(err);}
         else{
           req.session.user = result.rows[0];
           res.send("SUCCESS");
@@ -109,16 +106,21 @@ router.post('/update-business',function(req,res,next){
       else{hashed = passwordHash.generate(req.body.password);}
       const query2 = {
         text: 'UPDATE business SET name=$1,email=$2,password=$3,zipcode=$4,city=$5,state=$6,address=$7,description=$8,phone=$9,website=$10 WHERE email=$11',
-        values:[req.body.name,req.body.email,req.body.password,req.body.zipcode,req.body.city,req.body.address,req.body.description,req.body.phone,req.body.website,req.session.user.email]
+        values:[req.body.name,req.body.email,hashed,req.body.zipcode,req.body.city,req.body.state,req.body.address,req.body.description,req.body.phone,req.body.website,req.session.user.email]
       }
       currentClient.query(query2,(err,result)=>{
         if(err){console.log(err);}
         else{
-          req.session.user=result.rows[0];
-          res.send("SUCCESS");
+          //req.session.user=result.rows[0];
+          console.log(req.session.user); 
+          res.direct('/personal');
         }
     })
   }
 })
+});
+router.get('/logout', function(req, res) {
+  req.session.reset();
+  res.redirect('/');
 });
 module.exports = router;

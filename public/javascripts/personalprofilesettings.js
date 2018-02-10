@@ -17,6 +17,6 @@ $('#submit-button').click(function(event){
         data:updatedUser,
         type:"POST"
     }).done(function(json){
-        window.location.replace("/");
-     }) ;
+        window.location.replace("/personal");
+    });
 });

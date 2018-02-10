@@ -19,9 +19,9 @@ $('#login-button').click(function(){
             }
             else{
                 if (User.type == 'Personal'){
-                    window.location.replace("/personal-profile");
+                    window.location.replace("/personal");
                 }else{
-                    window.location.replace("/business-profile");
+                    window.location.replace("/business");
                 }
             }
         })

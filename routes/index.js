@@ -24,5 +24,10 @@ router.get('/personal-profile',function(req,res,next){
 router.get('/business-profile',function(req,res,next){
   res.render('businessprofilesettings',{user:req.session.user});
 });
-
+router.get('/personal',function(req,res,next){
+  res.render('personalprofile',{user:req.session.user});
+});
+router.get('/business',function(req,res,next){
+  res.render('/businessprofile',{user:req.session.user});
+});
 module.exports = router;
