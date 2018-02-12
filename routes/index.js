@@ -3,13 +3,15 @@ var router = express.Router();
 var client = require('../postgres.js');
 var currentClient = client.getClient();
 var passwordHash = require('password-hash');
-
+var auth = require('../utils/auth');
 /* GET home page. */
 router.get('/', function(req, res, next) {
   if (!req.session.user){
-    res.render('index', { title: 'Express',user:'none'});
+    currentClient.query('SELECT * FROM business',(err,result)=>{      
+    res.render('index', { title: 'Express',user:'none',newbusiness:result})
+  });
   }else{
-    res.render('index',{title:'ReviewR',user:req.session.user});
+    res.render('index',{title:'ReviewR',user:req.session.user,newbusiness:result});
   }
 });
 router.get('/signup-page',function(req,res,next){
@@ -18,19 +20,31 @@ router.get('/signup-page',function(req,res,next){
 router.get('/login-page',function(req,res,next){
   res.render('login');
 });
-router.get('/personal-profile',function(req,res,next){
+router.get('/personal-profile',auth.requireLogin,function(req,res,next){
   res.render('personalprofilesettings',{user:req.session.user});
 });
-router.get('/business-profile',function(req,res,next){
+router.get('/business-profile',auth.requireLogin,function(req,res,next){
   res.render('businessprofilesettings',{user:req.session.user});
 });
-router.get('/personal',function(req,res,next){
+router.get('/personal',auth.requireLogin,function(req,res,next){
   res.render('personalprofile',{user:req.session.user});
 });
-router.get('/business',function(req,res,next){
+router.get('/business',auth.requireLogin,function(req,res,next){
   res.render('businessprofile',{user:req.session.user});
 });
-router.get('/writeareview',function(req,res,next){
+router.get('/writeareview',auth.requireLogin,function(req,res,next){
   res.render('writeareview');
+});
+router.get('/view-business/:id',function(req,res,next){
+  query = {
+    text: 'SELECT * FROM business WHERE id = $1',
+    values:[req.params.id]
+  }
+  currentClient.query(query,(err,result)=>{
+    if(err){console.log(err);}
+    else{
+      res.render('viewbusiness',{user:result.rows[0]});
+    }
+  });
 });
 module.exports = router;
