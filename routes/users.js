@@ -3,6 +3,7 @@ var router = express.Router();
 var client = require('../postgres.js');
 var currentClient = client.getClient();
 var passwordHash = require('password-hash');
+var auth = require('../utils/auth');
 
 /* GET users listing. */
 router.get('/', function(req, res, next) {
@@ -80,13 +81,12 @@ router.post('/update-personal',function(req,res,next){
     if (req.body.newpassword != ''){ hashed = passwordHash.generate(req.body.newpassword);}
     else{hashed = passwordHash.generate(req.body.password);}
     const query2 = {
-      text: 'UPDATE personal SET name = $1,email=$2,password=$3,zipcode=$4,city=$5,state=$6 WHERE email=$7',
-      values:[req.body.name,req.body.email,hashed,req.body.zipcode,req.body.city,req.body.state,req.session.user.email]
+      text: 'UPDATE personal SET name = $1,password=$2,zipcode=$3,city=$4,state=$5 WHERE email=$6',
+      values:[req.body.name,hashed,req.body.zipcode,req.body.city,req.body.state,req.session.user.email]
     }
     currentClient.query(query2,(err,result)=>{
         if (err) {console.log(err);}
-        else{
-          req.session.user = result.rows[0];
+        else{ 
           res.send("SUCCESS");
         }
     })
