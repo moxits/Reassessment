@@ -5,14 +5,14 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var sessions = require('client-sessions');
-
+var client = require('./postgres.js');
 var index = require('./routes/index');
 var users = require('./routes/users');
 var reviews = require('./routes/reviews')
 
-var client = require('./postgres.js');
-client.connect();		//Establish connection with client
-var currentClient = client.getClient();
+//var client = require('./postgres.js');
+//client.connect();		//Establish connection with client
+//var currentClient = client.getClient();
 var app = express();
 
 // view engine setup
@@ -29,35 +29,41 @@ app.use(sessions({
 }));
 app.use(function(req,res,next){
   if (req.session && req.session.user){
-    var query;
-    if (req.session.user.type == "Personal"){
-      query = {
-        text: 'SELECT * FROM personal WHERE email = $1',
-        values:[req.session.user.email]
-      }
-    }else{
-      query = {
-        text: 'SELECT * FROM business WHERE email = $1',
-        values:[req.session.user.email]
-      }
-    }
-    currentClient.query(query,(err,result)=> {
-      if (err){
-        console.log(err);
-      }else{
-        if (result.rows.length != 0){
-          req.user = result.rows[0];
-          delete req.user.password;
-          req.session.user = result.rows[0];
-          res.locals.user = result.rows[0];
-        }
-      }
-      next();
-     });
+    req.user = req.session.user;
+    delete req.user.password;
+    res.locals.user = req.session.user;
+    next();
   }else{
     next();
   }
 });
+// app.use(function(req,res,next){
+//   if (req.session && req.session.user){
+//     if (req.session.user.type == 'personal'){
+//       client.query("SELECT * FROM personal WHERE email = :email",
+//       {replacements:{email:req.session.user.email}})
+//     .then(result => {
+//       req.user = result[0];
+//       delete req.user.password;
+//       req.session.user = result[0];
+//       res.locals.user = result[0];
+//     }).catch(err => res.status(400).send(err));
+//   }else{
+//     client.query("SELECT * FROM business WHERE email = :email",
+//     {replacements:{email:req.session.user.email}})
+//   .then(result => {
+//     req.user = result[0];
+//     delete req.user.password;
+//     req.session.user = result[0];
+//     res.locals.user = result[0];
+//   })//.catch(err => res.status(400).send(err));
+//   }
+//      next();
+//   }
+//   else{
+//     next();
+//   }
+// });
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));

@@ -1,38 +1,52 @@
+const Sequelize = require('sequelize');
 var pg = require('pg');
+const sequelize = new Sequelize('postgres://postgres:moxit1998@localhost:5432/ReviewRtest');
 
 var environment = process.env.NODE_ENV;
 var connectionString = 'postgres://postgres:moxit1998@localhost:5432/ReviewRtest';
+sequelize
+  .authenticate()
+  .then(() => {
+    console.log('Connection has been established successfully.');  
+  })
+  .catch(err => {
+    console.error('Unable to connect to the database:', err);
+  });
+sequelize.query('CREATE TABLE IF NOT EXISTS personal(id SERIAL PRIMARY KEY,type VARCHAR(50),name VARCHAR(50), email VARCHAR(100), password VARCHAR(100),zipcode INT,city VARCHAR(100),state VARCHAR(100),numreviews INT DEFAULT 0,bookmarks INT[])');
+sequelize.query('CREATE TABLE IF NOT EXISTS business(id SERIAL PRIMARY KEY,type VARCHAR(50),name VARCHAR(50),email VARCHAR(50),password VARCHAR(100),zipcode INT,city VARCHAR(100),state VARCHAR(100),address VARCHAR(100),phone VARCHAR(20),website VARCHAR(50),description VARCHAR(10000),rating INT DEFAULT 0,numreviews INT DEFAULT 0,reviews INT[])')
+sequelize.query('CREATE TABLE IF NOT EXISTS reviews(id SERIAL PRIMARY KEY,userid VARCHAR(50),day DATE,business VARCHAR(50),content VARCHAR(10000),rating INT)');
+// var currentClient = new function() {
+//     //Create a new instance of client
+//     var client = new pg.Client(connectionString);	
 
+//     //Establish connection with client
+//     this.connect = function() {
+//         client.connect((err)=> {
+//             if(!err){
+//                 console.log('CLIENT CONNECTED TO: '+ connectionString);
+//                 //client.query('CREATE TABLE IF NOT EXISTS personal(id SERIAL PRIMARY KEY,type VARCHAR(50),name VARCHAR(50), email VARCHAR(100), password VARCHAR(100),zipcode INT,city VARCHAR(100),state VARCHAR(100),numreviews INT,reviews INT[],bookmarks INT[])');
+//                 //client.query('CREATE TABLE IF NOT EXISTS business(id SERIAL PRIMARY KEY,type VARCHAR(50),name VARCHAR(50),email VARCHAR(50),password VARCHAR(100),zipcode INT,city VARCHAR(100),state VARCHAR(100),address VARCHAR(100),phone VARCHAR(20),website VARCHAR(50),description VARCHAR(10000),rating INT,numreviews INT,reviews INT[])');
+//                 //client.query('CREATE TABLE IF NOT EXISTS reviews(id SERIAL PRIMARY KEY,user VARCHAR(50),business VARCHAR(50),content VARCHAR(100000),rating INT)');
+//             }
+//             else{
+//                 console.log(err);
+//             }
+//         });
+//     }
+//     //Get client
+//     this.getClient = function() {
+//         return client;
+//     }
+//     //Wipe database for testing
+//     this.truncate = function() {
+//         client.query('TRUNCATE personal');
+//         client.query('TRUNCATE business')
+//     }
 
-var currentClient = new function() {
-    //Create a new instance of client
-    var client = new pg.Client(connectionString);	
+//     //Logout
+//     this.logout = function() {
+//         client.end();
+//     }
+// }
 
-    //Establish connection with client
-    this.connect = function() {
-        client.connect((err)=> {
-            if(!err){
-                console.log('CLIENT CONNECTED TO: '+ connectionString);
-                client.query('CREATE TABLE IF NOT EXISTS personal(id SERIAL PRIMARY KEY,type VARCHAR(50),name VARCHAR(50), email VARCHAR(100), password VARCHAR(100),zipcode INT,city VARCHAR(100),state VARCHAR(100),numreviews INT,reviews INT[],bookmarks INT[])');
-                client.query('CREATE TABLE IF NOT EXISTS business(id SERIAL PRIMARY KEY,type VARCHAR(50),name VARCHAR(50),email VARCHAR(50),password VARCHAR(100),zipcode INT,city VARCHAR(100),state VARCHAR(100),address VARCHAR(100),phone VARCHAR(20),website VARCHAR(50),description VARCHAR(10000),rating INT,numreviews INT,reviews INT[])');
-                client.query('CREATE TABLE IF NOT EXISTS reviews(id SERIAL PRIMARY KEY,user VARCHAR(50),business VARCHAR(50),date DATE,content VARCHAR(100000),rating INT)')
-            }
-        });
-    }
-    //Get client
-    this.getClient = function() {
-        return client;
-    }
-    //Wipe database for testing
-    this.truncate = function() {
-        client.query('TRUNCATE personal');
-        client.query('TRUNCATE business')
-    }
-
-    //Logout
-    this.logout = function() {
-        client.end();
-    }
-}
-
-module.exports = currentClient;
+module.exports =sequelize;

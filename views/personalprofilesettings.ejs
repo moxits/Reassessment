@@ -27,10 +27,10 @@
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
           <li class="nav-item active">
-            <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+            <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">Link</a>
+            <a class="nav-link" href="/users/logout">Logout</a>
           </li>
          
           <li class="nav-item">
@@ -165,7 +165,11 @@
 <span class="help-block">This field is required.</span>
 <input id="zipcode" maxlength="5" name="zipcode" placeholder="" size="30" type="text" value=<%=user.zipcode %> required>
 
-c
+<label for="state" >City</label>
+
+<span class="help-block">This field is required.Please use full state name.</span>
+<input id="city" maxlength="36" name="city" placeholder="" size="30" type="text" value=<%=user.city %> required>
+
 <label for="state" >State</label>
 
 <span class="help-block">This field is required.Please use full state name.</span>

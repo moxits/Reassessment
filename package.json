@@ -17,7 +17,8 @@
     "password-hash": "^1.2.2",
     "pg": "^7.4.1",
     "pg-hstore": "^2.3.2",
-    "sequelize": "^4.32.2",
-    "serve-favicon": "~2.4.5"
+    "sequelize": "^4.33.3",
+    "serve-favicon": "~2.4.5",
+    "sql": "^0.78.0"
   }
 }
