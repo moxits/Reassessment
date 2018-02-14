@@ -18,7 +18,7 @@ $('#login-button').click(function(){
                 alert('Email does not exist');
             }
             else{
-                if (User.type == 'Personal'){
+                if (User.type == 'personal'){
                     window.location.replace("/personal");
                 }else{
                     window.location.replace("/business");

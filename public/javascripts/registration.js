@@ -11,7 +11,7 @@ $('#register-button').click(function(){
             data: newUser,
             type:"POST",
         }).done(function(json){
-            if (newUser.type == 'Personal'){
+            if (newUser.type == 'personal'){
                 window.location.replace("/personal-profile");
             }else{
                 window.location.replace("/business-profile");

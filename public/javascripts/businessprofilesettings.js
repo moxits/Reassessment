@@ -4,7 +4,6 @@ $('#submit-button').click(function(event){
     event.preventDefault();
     updatedUser = {
         name:$('input[name=name]').val(),
-        email:$('input[name=email]').val(),
         website:$('input[name=website]').val(),
         phone:$('input[name=phone]').val(),
         address:$('input[name=street-address]').val(),
@@ -12,9 +11,10 @@ $('#submit-button').click(function(event){
         zipcode:$('input[name=zipcode]').val(),
         city:$('input[name=city]').val(),
         state:$('input[name=state]').val(),
+        category1:$('input[name=category1]').val(),
+        category2:$('input[name=category2]').val(),
         newpassword:$('input[name=newpassword]').val(),
         password:$('input[name=password]').val(),
-
     }
     console.log(updatedUser.address);
     $.ajax({

@@ -9,13 +9,12 @@ router.get('/', function(req, res, next) {
   if (!req.session.user){
     client.query("SELECT * FROM business ORDER BY id DESC")
     .then(result=>{
-      console.log(result[0]);
       res.render('index', { title: 'Express',user:'none',newbusiness:result[0]});
     });
   }else{
     client.query("SELECT * FROM business ORDER BY id DESC")
     .then(result=>{
-      res.render('index', { title: 'Express',user:'none',newbusiness:result[0]});
+      res.render('index', { title: 'Express',user:req.session.user,newbusiness:result[0]});
     });
   }
 });
@@ -26,6 +25,7 @@ router.get('/login-page',function(req,res,next){
   res.render('login');
 });
 router.get('/personal-profile',auth.requireLogin,function(req,res,next){
+  console.log('req',req.session.user);
   res.render('personalprofilesettings',{user:req.session.user});
 });
 router.get('/business-profile',auth.requireLogin,function(req,res,next){
