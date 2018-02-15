@@ -14,32 +14,7 @@
   <noscript>
     <link rel="stylesheet" href="https://s3-media2.fl.yelpcdn.com/assets/srv0/svg_icons/1421d1203d09/assets/sprite.css">
 </noscript>
-<div id = "navbar-custom">
-    <nav  class="navbar navbar-expand-lg navbar-light bg-light">
-      <a class="navbar-brand" href="#">ReviewR</a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <form class="form-inline my-2 my-lg-0">
-        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-      </form>
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav mr-auto">
-              <li class="nav-item active">
-                <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="/users/logout">Logout</a>
-              </li>
-             
-              <li class="nav-item">
-                <a class="nav-link disabled" href="#">Disabled</a>
-              </li>
-            </ul>
-          </div>
-</nav>
-</div>
+<% include header.ejs %>
 
 <div class="main-content-wrap main-content-wrap--full">
         <div class="top-shelf top-shelf-grey">
@@ -66,15 +41,7 @@
                         </div>
                             
     
-        <div class="photo-box_actions">
-            <a class="photo-box_action-link" href="/user_photos/add">
-                <span aria-hidden="true" style="width: 18px; height: 18px;" class="icon icon--18-add-photo icon--size-18 icon--currentColor u-space-r-half">
-        <svg class="icon_svg">
-            <use xlink:href="#18x18_add_photo" />
-        </svg>
-    </span><span class="photo-box_action-text">Add a photo</span>
-            </a>
-        </div>
+      
     
                     </div>
                 </div>
@@ -82,35 +49,19 @@
             <div class="user-profile_content-wrapper arrange arrange--bottom arrange--30">
                 <div class="user-profile_avatar-dummy arrange_unit" aria-hidden="true"></div>
                 <div class="user-profile_info arrange_unit">
-                    <h1>Moxit S.</h1>
+                    <h1><%= user.name %></h1>
                         <h3 class="user-location alternate"><%= user.city %>, <%=user.state %></h3>
                     <div class="clearfix">
                         
     
         <ul class="user-passport-stats">
-            <li class="friend-count">
-                <span aria-hidden="true" style="fill: #f15c00; width: 24px; height: 24px;" class="icon icon--24-friends icon--size-24">
-        <svg class="icon_svg">
-            <use xlink:href="#24x24_friends" />
-        </svg>
-    </span>
-                <strong>0</strong> Friends
-            </li>
             <li class="review-count">
                 <span aria-hidden="true" style="fill: #f15c00; width: 24px; height: 24px;" class="icon icon--24-review icon--size-24">
         <svg class="icon_svg">
             <use xlink:href="#24x24_review" />
         </svg>
     </span>
-                <strong>0</strong> Reviews
-            </li>
-            <li class="photo-count">
-                <span aria-hidden="true" style="fill: #f15c00; width: 24px; height: 24px;" class="icon icon--24-camera icon--size-24">
-        <svg class="icon_svg">
-            <use xlink:href="#24x24_camera" />
-        </svg>
-    </span>
-                <strong>0</strong> Photos
+                <strong><%= user.numreviews %></strong> Reviews
             </li>
         </ul>
     
@@ -119,9 +70,6 @@
                 </div>
                 <div class="user-profile_actions arrange_unit">
                         <ul class="action-link-list">
-            
-           
-    
             <li>
                 
     
@@ -141,24 +89,7 @@
     
             </li>
     
-            <li>
-                
-    
-    
-        <a class="arrange arrange--middle" href="/find_friends" rel="">
-            <div class="action-link_icon arrange_unit">
-                <span aria-hidden="true" style="width: 18px; height: 18px;" class="icon icon--18-add-friend icon--size-18 icon--currentColor">
-        <svg class="icon_svg">
-            <use xlink:href="#18x18_add_friend" />
-        </svg>
-    </span>
-            </div>
-            <div class="action-link_label arrange_unit arrange_unit--fill">
-                Find Friends
-            </div>
-        </a>
-    
-            </li>
+           
     
     
         </ul>
@@ -338,16 +269,8 @@
         <div class="column column-beta ">
         <div class="user-details-overview">
             <div class="user-details-overview_activity">
-                    <h2>Notifications</h2>
-    
-                        <p class="user_details-no_notifications u-space-b2">No new friend requests or compliments at this time.</p>
-    
-                        <div class="media-details js-media-details js-media-details-template hidden">
-            <div class="media-details_container media-details_container--embed media-details_container--with-sidebar">
-                <div class="media-container js-media-container"></div>
-                <div class="media-nav js-media-nav"></div>
-            </div>
-        </div>
+             
+        
     
                     
     

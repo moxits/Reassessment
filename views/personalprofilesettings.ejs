@@ -139,7 +139,10 @@
 
                 <div class="ysection">
                     <h4>Your Profile Photo
-                        <strong><a href="/user_photos?return_url=/profile">(Add/Edit)</a></strong>
+                            <form method="post" enctype="multipart/form-data" action="/upload">
+                                <input type="file" name="file">
+                                <input type="submit" value="Submit">
+                            </form>
                     </h4>
                         
 
@@ -167,7 +170,7 @@
 
 <label for="state" >City</label>
 
-<span class="help-block">This field is required.Please use full state name.</span>
+<span class="help-block">This field is required.Please use abbreviated state name.</span>
 <input id="city" maxlength="36" name="city" placeholder="" size="30" type="text" value=<%=user.city %> required>
 
 <label for="state" >State</label>

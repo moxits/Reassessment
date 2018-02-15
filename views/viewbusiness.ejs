@@ -112,12 +112,12 @@
 
 
 
-  <img  height="25" src="\images\regular\regular_3.png" width="100" alt="5.0 star rating">
+  <img  height="25" src="\images\regular\regular_<%= Math.floor(user.rating) %>.png" width="100" alt="5.0 star rating">
 
 
 
               <span class="review-count rating-qualifier">
-      12 reviews
+      <%=user.numreviews %> reviews
 </span>
 
   </div>
@@ -129,11 +129,10 @@
   <div class="price-category">
               <span class="bullet-after">
       
-  <span class="business-attribute price-range">$$</span>
-  </span>
+ 
       <span class="category-str-list">
-              <a href="/c/tustin-ca-us/desserts">Desserts</a>,
-              <a href="/c/tustin-ca-us/macarons">Macarons</a>
+              <a href="/c/tustin-ca-us/desserts"><%= user.category1 %></a>,
+              <a href="/c/tustin-ca-us/macarons"><%= user.category2 %></a>
 </span>
 
 
@@ -173,31 +172,8 @@
 
 <span class="ybtn-group clearfix">
 
-<a class="ybtn ybtn--small add-photo-button" href="/biz_user_photos/teu2igG-FtE455XXTbOE6Q/upload">
-      <span aria-hidden="true" style="width: 18px; height: 18px;" class="icon icon--18-add-photo icon--size-18 icon--currentColor">
-<svg class="icon_svg">
-  <use xlink:href="#18x18_add_photo" />
-</svg>
-</span>
-      Add Photo
-</a>
 
   
-
-
-
-<a class="ybtn ybtn--small share-icon js-business-send-to-friend" data-pop-uri="/send_to_friend/business/teu2igG-FtE455XXTbOE6Q" data-ro-mode-action="share a business" href="/biz_share/teu2igG-FtE455XXTbOE6Q">
-      <span aria-hidden="true" style="width: 18px; height: 18px;" class="icon icon--18-share icon--size-18 icon--currentColor">
-<svg class="icon_svg">
-  <use xlink:href="#18x18_share" />
-</svg>
-</span>
-      <span class="js-popup-link-text">Share</span>
-      <span class="offscreen">, Opens a popup</span>
-</a>
-
-  
-
 
 
 
@@ -256,87 +232,6 @@
 
   <div class="tab-nav-container">
       <ul class="tab-nav js-tab-nav tab-nav--full js-tab-nav--full">
-              
-      <li class="tab-nav_item">
-                  
-
-
-
-
-
-<a class="tab-link js-tab-link tab-link--nav js-tab-link--nav is-selected" data-tab-id="driving" href="javascript:;">
-      <span aria-label="Driving" style="width: 24px; height: 24px;" class="icon icon--24-car icon--size-24 icon--currentColor is-active tab-link_icon js-tab-link_icon tab-link_icon-wrap">
-<svg class="icon_svg">
-  <use xlink:href="#24x24_car" />
-</svg>
-</span>
-</a>
-
-
-      </li>
-
-
-
-      <li class="tab-nav_item">
-                  
-
-
-
-
-
-<a class="tab-link js-tab-link tab-link--nav js-tab-link--nav" data-tab-id="transit" href="javascript:;">
-      <span aria-label="Public Transit" style="width: 24px; height: 24px;" class="icon icon--24-transit icon--size-24 icon--currentColor tab-link_icon js-tab-link_icon tab-link_icon-wrap">
-<svg class="icon_svg">
-  <use xlink:href="#24x24_transit" />
-</svg>
-</span>
-</a>
-
-
-      </li>
-
-
-
-      <li class="tab-nav_item">
-                  
-
-
-
-
-
-<a class="tab-link js-tab-link tab-link--nav js-tab-link--nav" data-tab-id="walking" href="javascript:;">
-      <span aria-label="Walking" style="width: 24px; height: 24px;" class="icon icon--24-walk icon--size-24 icon--currentColor tab-link_icon js-tab-link_icon tab-link_icon-wrap">
-<svg class="icon_svg">
-  <use xlink:href="#24x24_walk" />
-</svg>
-</span>
-</a>
-
-
-      </li>
-
-
-
-      <li class="tab-nav_item tab-nav_item--last">
-                  
-
-
-
-
-
-<a class="tab-link js-tab-link tab-link--nav js-tab-link--nav" data-tab-id="cycling" href="javascript:;">
-      <span aria-label="Cycling" style="width: 24px; height: 24px;" class="icon icon--24-bicycle icon--size-24 icon--currentColor tab-link_icon js-tab-link_icon tab-link_icon-wrap">
-<svg class="icon_svg">
-  <use xlink:href="#24x24_bicycle" />
-</svg>
-</span>
-</a>
-
-
-      </li>
-
-
-
       </ul>
   </div>
 

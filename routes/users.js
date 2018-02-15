@@ -2,6 +2,8 @@ var express = require('express');
 var router = express.Router();
 var client = require('../postgres.js');
 //var currentClient = client.getClient();
+var path = require('path');
+var fs = require('fs');
 var passwordHash = require('password-hash');
 var auth = require('../utils/auth');
 
@@ -11,7 +13,9 @@ router.get('/', function(req, res, next) {
   res.send('respond with a resource');
 });
 
-router.post('/newreview',function(req,res,next){
+router.post('/newreview',auth.requireLogin,function(req,res,next){
+  client.query(`UPDATE personal SET numreviews = numreviews+1 WHERE id='${req.session.user.id}'`)
+  .catch(err=>console.log(err))
   client.query("SELECT * FROM business WHERE id=:id",
   {replacements:{id:req.body.businessid}})
   .then(result=>{
@@ -83,7 +87,7 @@ router.post('/login',function(req,res,next){
     }
   
 });
-router.post('/update-personal',function(req,res,next){
+router.post('/update-personal',auth.requireLogin,function(req,res,next){
   client.query("SELECT * FROM personal WHERE email = :email",
   {replacements:{email:req.session.user.email}})
   .then(result=>{
@@ -100,7 +104,7 @@ router.post('/update-personal',function(req,res,next){
   }
 }).catch(err=>res.status(400).send(err));
 });
-router.post('/update-business',function(req,res,next){
+router.post('/update-business',auth.requireLogin,function(req,res,next){
   console.log(req.session.user);
   client.query("SELECT * FROM business WHERE email=:email",
   {replacements:{email:req.session.user.email}})
@@ -119,35 +123,21 @@ router.post('/update-business',function(req,res,next){
   }
 }).catch(err=>console.log(err));
 });
-router.post('/bookmark',function(req,res,next){
+router.post('/bookmark',auth.requireLogin,function(req,res,next){
   let query = `UPDATE personal SET bookmarks = array_append(bookmarks,'${req.body.businessid}') WHERE id = '${req.session.user.id}' RETURNING *`
   client.query(query)
   .then(result=>{
     res.send(result[0]);
   }).catch(err=>console.log(err));
 });
-router.post('/deletebookmark',function(req,res,next){
+router.post('/deletebookmark',auth.requireLogin,function(req,res,next){
   let query = `UPDATE personal SET bookmarks = array_remove(bookmarks,'${req.body.businessid}') WHERE id = '${req.session.user.id}' RETURNING *`;
   client.query(query)
   .then(result=>{
     res.send(result[0]);
   }).catch(err=>console.log(err));
 })
-router.post('/search/:searchterm',function(req,res,next){
-  if (req.body.location != ""){
-    var city = req.body.location.split(",")[0];
-    var state = req.body.location.split(",")[1];
-    if (state != undefined){
-      var query = `SELECT * FROM business WHERE name ILIKE '%${req.params.searchterm}%' AND city ILIKE '%${city}%' AND state ILIKE '%${state}%'`;
-    }
-  }else{
-    var query = `SELECT * FROM business WHERE name ILIKE '%${req.params.searchterm}%'`;
-  }
-  client.query(query)
-  .then(result=>{
-    res.send(result[0]);
-  }).catch(err=>console.log(err));
-});
+
 router.get('/logout', function(req, res) {
   req.session.reset();
   res.redirect('/');

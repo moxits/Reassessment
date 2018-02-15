@@ -55,4 +55,46 @@ router.get('/view-business/:id',function(req,res,next){
     }
   }).catch(err=>res.status(400).send(err));
 });
+router.post('/search/:searchterm',function(req,res,next){
+  var toreturn = [];
+  if (req.body.location != undefined){
+    var city = req.body.location.split(",")[0];
+    var state = req.body.location.split(",")[1];
+    if (state != undefined){
+      var query = `SELECT * FROM business WHERE name ILIKE '%${req.params.searchterm}%' AND city ILIKE '%${city}%' AND state ILIKE '%${state}%'`;
+    }else{
+      if (req.body.location.length < 3){
+        var query = `SELECT * FROM business WHERE name ILIKE '%${req.params.searchterm}%' AND state ILIKE '%${city}%'`
+      }else{
+        var query = `SELECT * FROM business WHERE name ILIKE '%${req.params.searchterm}%' AND city ILIKE '%${city}%'`
+      }
+    }
+  }else{
+    var query = `SELECT * FROM business WHERE name ILIKE '%${req.params.searchterm}%'`;
+  }
+  client.query(query)
+  .then(result=>{
+    toreturn = toreturn.concat(result[0]);
+  }).catch(err=>console.log(err));
+  if (req.body.location != undefined){
+    var city = req.body.location.split(",")[0];
+    var state = req.body.location.split(",")[1];
+    if (state != undefined){
+      var query = `SELECT * FROM business WHERE category1 ILIKE '%${req.params.searchterm}%' OR category2 ILIKE '%${req.params.searchterm}' AND city ILIKE '%${city}%' AND state ILIKE '%${state}%'`;
+    }else{
+      if (req.body.location.length < 3){
+        var query = `SELECT * FROM business WHERE category1 ILIKE '%${req.params.searchterm}%' OR category2 ILIKE '%${req.params.searchterm}' AND state ILIKE '%${city}%'`
+      }else{
+        var query = `SELECT * FROM business WHERE category1 ILIKE '%${req.params.searchterm}%' OR category2 ILIKE '%${req.params.searchterm}' AND city ILIKE '%${city}%'`
+      }
+    }
+  }else{
+    var query = `SELECT * FROM business WHERE category1 ILIKE '%${req.params.searchterm}%' OR category2 ILIKE '%${req.params.searchterm}'`;
+  }
+  client.query(query)
+  .then(result=>{
+    toreturn = toreturn.concat(result[0]);
+    res.send(toreturn);
+  }).catch(err=>console.log(err));
+});
 module.exports = router;
