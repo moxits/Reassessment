@@ -38,21 +38,35 @@ router.post('/newreview',auth.requireLogin,function(req,res,next){
 router.post('/register',function(req,res){
 
     var hashed = passwordHash.generate(req.body.password);
-    var query;
     if (req.body.type == 'personal'){
-      client.query("INSERT INTO personal(type,name,email,password) VALUES(:type,:name,:email,:password) RETURNING *",
-      {replacements:{type:req.body.type,name:req.body.name,email:req.body.email,password:hashed}})
-        .then(result=>{
-          req.session.user = result[0][0];
-          res.send(result[0]);
-        }).catch(err => console.log(err));
+      client.query(`SELECT * FROM personal WHERE email = '${req.body.email}'`)
+      .then(result=>{
+        console.log("result length",result[0].length);
+        if (result[0].length != 0){
+          res.send("TAKEN");
+        }else{
+          client.query("INSERT INTO personal(type,name,email,password) VALUES(:type,:name,:email,:password) RETURNING *",
+          {replacements:{type:req.body.type,name:req.body.name,email:req.body.email,password:hashed}})
+            .then(result=>{
+              req.session.user = result[0][0];
+              res.send(result[0]);
+            }).catch(err => console.log(err));
+        }
+      }).catch(err=>console.log(err));
       }else{
-        client.query("INSERT INTO business(type,name,email,password) VALUES(:type,:name,:email,:password) RETURNING *",
-        {replacements:{type:req.body.type,name:req.body.name,email:req.body.email,password:hashed}})
-          .then(result=>{
-            req.session.user = result[0][0];
-            res.send(result[0][0]);
-          }).catch(err => console.log(err));
+        client.query(`SELECT * FROM business WHERE email = '${req.body.email}'`)
+        .then(result=>{
+          if (result[0].length != 0){
+            res.send("TAKEN");
+          }else{
+            client.query("INSERT INTO business(type,name,email,password) VALUES(:type,:name,:email,:password) RETURNING *",
+            {replacements:{type:req.body.type,name:req.body.name,email:req.body.email,password:hashed}})
+              .then(result=>{
+                req.session.user = result[0][0];
+                res.send(result[0][0]);
+              }).catch(err => console.log(err));
+          }
+        }).catch(err=>console.log(err));
       }
 });
 router.post('/login',function(req,res,next){

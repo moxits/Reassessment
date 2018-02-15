@@ -12,9 +12,17 @@ $('#register-button').click(function(){
             type:"POST",
         }).done(function(json){
             if (newUser.type == 'personal'){
-                window.location.replace("/personal-profile");
+                if (json !== "TAKEN"){
+                    window.location.replace("/personal-profile");
+                }else{
+                    alert('Email is already registered');
+                }
             }else{
-                window.location.replace("/business-profile");
+                if (json != "TAKEN"){
+                    window.location.replace("/business-profile");
+                }else{
+                    alert('Email is already registered');
+                }
             }
         })
 });

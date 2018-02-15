@@ -14,24 +14,7 @@
       
 <div class="y-container homepage-hero" style="background-image: url(https://images.freecreatives.com/wp-content/uploads/2016/02/Solid-Gray-Background-for-Free.jpg)">
   <div class="y-container_content">
-                  <ul class="offscreen">
-          <li>
-              <a href="#header_find_form" rel="nofollow">
-                  Skip to Search Form
-              </a><span id="fyqufswwdrzztfywfuc"><a rel="file" style="display: none;" href="uucrwxfyqawvzseawbc.html">zytwdauduzdeuwzwzbbfzy</a></span>
-          </li>
-          <li>
-              <a href="#header-nav" rel="nofollow">
-                  Skip to Navigation
-              </a>
-          </li>
-          <li>
-              <a href="#page-content" rel="nofollow">
-                  Skip to Page Content
-              </a>
-          </li>
-  </ul>
-
+    
 
   <div class="hero-header js-main-header">
       <div class="arrange arrange--18">
@@ -108,7 +91,7 @@
          
       </div>
 
-          <form method="get" action="/search" id="header_find_form" class="business-search-form main-search yform u-space-b0 js-business-search-form" role="search">
+<form method="get" action="/search" id="header_find_form" class="business-search-form main-search yform u-space-b0 js-business-search-form" role="search">
   <div class="arrange arrange--equal arrange--stack-small">
       <div class="arrange_unit">
           <div class="main-search_suggestions-field search-field-container find-decorator">
@@ -116,7 +99,7 @@
                   <div class="pseudo-input_wrapper">
                       <span class="pseudo-input_text business-search-form_input-text">Find</span>
                       <span class="pseudo-input_field-holder">
-                          <input autocomplete="off" id="find_desc" maxlength="64" name="find_desc" placeholder="burgers, barbers, spas, handymen" value="" class="pseudo-input_field business-search-form_input-field" aria-autocomplete="list" tabindex="1">
+                          <input autocomplete="off" id="searchterm" maxlength="64" name="find_desc" placeholder="Search by business name or category" value="" class="pseudo-input_field business-search-form_input-field" aria-autocomplete="list" tabindex="1">
                       </span>
                   </div>
               </label>
@@ -134,8 +117,13 @@
                           <div class="pseudo-input_wrapper">
                           <span class="pseudo-input_text business-search-form_input-text">Near</span>
                               <span class="pseudo-input_field-holder">
-                                  <input autocomplete="off" id="dropperText_Mast" maxlength="80" name="find_loc" placeholder="address, neighborhood, city, state or zip" value="Irvine, CA" class="pseudo-input_field business-search-form_input-field" aria-autocomplete="list" tabindex="2">
+                                  <% if(user != 'none'){ %>
+                                  <input autocomplete="off" id="citystate" maxlength="80" name="find_loc" placeholder="City,State (abbreviated)"  value="<%= user.city %>, <%= user.state %>"  class="pseudo-input_field business-search-form_input-field" aria-autocomplete="list" tabindex="2">
                                   <input type="hidden" name="ns" value="1">
+                                  <% }else{ %> 
+                                    <input autocomplete="off" id="citystate" maxlength="80" name="find_loc" placeholder="City,State (abbreviated)"  value=""  class="pseudo-input_field business-search-form_input-field" aria-autocomplete="list" tabindex="2">
+                                  <input type="hidden" name="ns" value="1">
+                                  <% } %>
                               </span>
                           </div>
                       </label>
@@ -147,35 +135,7 @@
               <div class="arrange_unit">
 
 <button class="ybtn ybtn--primary ybtn--small business-search-form_button" id="header-search-submit" tabindex="3" title="Search" type="submit" value="submit">
-                      <span class="main-search_action-icon-wrap js-search-icon-wrap">
-                          <span aria-hidden="true" style="width: 24px; height: 24px;" class="icon icon--24-search icon--size-24 icon--currentColor">
-<svg class="icon_svg">
-  <use xlink:href="#24x24_search" />
-</svg>
-</span>
-                          <span class="u-offscreen">Search</span>
-                      </span>
-                          <div class="circle-spinner js-circle-spinner hidden">
-  <div class="circle-spinner_segment container1">
-      <div class="circle1"></div>
-      <div class="circle2"></div>
-      <div class="circle3"></div>
-      <div class="circle4"></div>
-  </div>
-  <div class="circle-spinner_segment container2">
-      <div class="circle1"></div>
-      <div class="circle2"></div>
-      <div class="circle3"></div>
-      <div class="circle4"></div>
-  </div>
-  <div class="circle-spinner_segment container3">
-      <div class="circle1"></div>
-      <div class="circle2"></div>
-      <div class="circle3"></div>
-      <div class="circle4"></div>
-  </div>
-</div>
-
+Search
 </button>
               </div>
           </div>
@@ -215,390 +175,140 @@
         <li class="tab-nav_item">
     </div>
 </div>
-<% if (newbusiness.length >= 3) { %>
                     <div class="home-container_section js-hot-new-businesses-section">
             <h3 class="explore-city_title">Hot & New Businesses</h3>
 <div class="arrange arrange--wrap arrange--3-units arrange--30">
-    
-        <div class="arrange_unit">
-                <div class="card business-passport-card">
-    <div class="card_photo">   
+<% for(var i=newbusiness.length-1; 0<=i; i--) {%>
+
+    <div class="arrange_unit">
+        <div class="card business-passport-card">
+<div class="card_photo">   
 <div class="photo-box photo-box--interactive photo-box--background" style="background-image: url(https://s3-media2.fl.yelpcdn.com/bphoto/uBHu1TbXnTbudFOHvd9uKg/l.jpg)">
-            <a href="/biz/king-almond-irvine" class="photo-box_link js-analytics-click" data-analytics-label="biz-photo">
-            <img alt="King Almond" class="photo-box-img" height="400" src="https://s3-media2.fl.yelpcdn.com/bphoto/uBHu1TbXnTbudFOHvd9uKg/l.jpg" srcset="https://s3-media2.fl.yelpcdn.com/bphoto/uBHu1TbXnTbudFOHvd9uKg/o.jpg 1.67x" width="600">
+    <a href="/biz/king-almond-irvine" class="photo-box_link js-analytics-click" data-analytics-label="biz-photo">
+    <img alt="King Almond" class="photo-box-img" height="400" src="https://s3-media2.fl.yelpcdn.com/bphoto/uBHu1TbXnTbudFOHvd9uKg/l.jpg" srcset="https://s3-media2.fl.yelpcdn.com/bphoto/uBHu1TbXnTbudFOHvd9uKg/o.jpg 1.67x" width="600">
 
-    </a>
-
-</div>
-
-    </div>
-    <div class="card_body">
-        <div class="card_content">
-            <h3 class="card_content-title--linked u-text-truncate">
-                    
-<div class="business-link-hovercard js-business-link-hovercard">
-    <span class="business-link-hovercard_business-link js-business-link">
-                <a class="biz-name js-analytics-click" data-analytics-label="biz-name" href="/view-business/<%= newbusiness[0].id %>" data-hovercard-id="" ><span ><%= newbusiness[0].name %></span></a>
-
-    </span>
-    
-
-<div class="js-business-hovercard u-break-word business-link-hovercard_hovercard u-hidden">
-        <div class="media-block media-block--12 biz-listing-medium">
-    <div class="media-avatar">
-                    <div class="photo-box pb-90s">
-            <a href="/view-business/<%= newbusiness[0].id %>" class="js-analytics-click" data-analytics-label="biz-photo">
-            <img alt="King Almond" class="photo-box-img" height="90" src="https://s3-media2.fl.yelpcdn.com/bphoto/uBHu1TbXnTbudFOHvd9uKg/90s.jpg" srcset="https://s3-media2.fl.yelpcdn.com/bphoto/uBHu1TbXnTbudFOHvd9uKg/ms.jpg 1.11x,https://s3-media2.fl.yelpcdn.com/bphoto/uBHu1TbXnTbudFOHvd9uKg/ls.jpg 2.78x,https://s3-media2.fl.yelpcdn.com/bphoto/uBHu1TbXnTbudFOHvd9uKg/120s.jpg 1.33x,https://s3-media2.fl.yelpcdn.com/bphoto/uBHu1TbXnTbudFOHvd9uKg/168s.jpg 1.87x,https://s3-media2.fl.yelpcdn.com/bphoto/uBHu1TbXnTbudFOHvd9uKg/258s.jpg 2.87x,https://s3-media2.fl.yelpcdn.com/bphoto/uBHu1TbXnTbudFOHvd9uKg/180s.jpg 2.00x" width="90">
-
-    </a>
+</a>
 
 </div>
 
-
-
-    </div>
-    <div class="media-story">
-            <div class="media-title clearfix">
-                <a class="biz-name js-analytics-click" data-analytics-label="biz-name" href="/biz/king-almond-irvine" data-hovercard-id="" ><span >King Almond</span></a>
-
 </div>
-        <div class="biz-rating biz-rating-large clearfix" itemprop="aggregateRating" itemscope itemtype="http://schema.org/AggregateRating">
+<div class="card_body">
+<div class="card_content">
+    <h3 class="card_content-title--linked u-text-truncate">
             
+<div class="business-link-hovercard js-business-link-hovercard">
+<span class="business-link-hovercard_business-link js-business-link">
+        <a class="biz-name js-analytics-click" data-analytics-label="biz-name" href="/view-business/<%= newbusiness[i].id %>" data-hovercard-id="" ><span ><%= newbusiness[i].name %></span></a>
 
-
-
-<div class="i-stars i-stars--regular-5 rating-large" title="5.0 star rating">
-    <img class="offscreen" height="303" src="https://s3-media2.fl.yelpcdn.com/assets/srv0/yelp_design_web/9b34e39ccbeb/assets/img/stars/stars.png" width="84" alt="5.0 star rating">
-</div>
-    <meta itemprop="ratingValue" content="5.0">
-
-
-                <span class="review-count rating-qualifier">
-        <span itemprop="reviewCount">7</span> reviews
 </span>
 
-    </div>
 
-    <div class="price-category">
-                <span class="category-str-list">
-                Bakeries,
-                Specialty Food,
-                Desserts
+<div class="js-business-hovercard u-break-word business-link-hovercard_hovercard u-hidden">
+<div class="media-block media-block--12 biz-listing-medium">
+<div class="media-avatar">
+            <div class="photo-box pb-90s">
+    <a href="/view-business/<%= newbusiness[i].id %>" class="js-analytics-click" data-analytics-label="biz-photo">
+    <img alt="King Almond" class="photo-box-img" height="90" src="https://s3-media2.fl.yelpcdn.com/bphoto/uBHu1TbXnTbudFOHvd9uKg/90s.jpg" srcset="https://s3-media2.fl.yelpcdn.com/bphoto/uBHu1TbXnTbudFOHvd9uKg/ms.jpg 1.11x,https://s3-media2.fl.yelpcdn.com/bphoto/uBHu1TbXnTbudFOHvd9uKg/ls.jpg 2.78x,https://s3-media2.fl.yelpcdn.com/bphoto/uBHu1TbXnTbudFOHvd9uKg/120s.jpg 1.33x,https://s3-media2.fl.yelpcdn.com/bphoto/uBHu1TbXnTbudFOHvd9uKg/168s.jpg 1.87x,https://s3-media2.fl.yelpcdn.com/bphoto/uBHu1TbXnTbudFOHvd9uKg/258s.jpg 2.87x,https://s3-media2.fl.yelpcdn.com/bphoto/uBHu1TbXnTbudFOHvd9uKg/180s.jpg 2.00x" width="90">
+
+</a>
+
+</div>
+
+
+
+</div>
+<div class="media-story">
+    <div class="media-title clearfix">
+        <a class="biz-name js-analytics-click" data-analytics-label="biz-name" href="/biz/king-almond-irvine" data-hovercard-id="" ><span >King Almond</span></a>
+
+</div>
+<div class="biz-rating biz-rating-large clearfix" itemprop="aggregateRating" itemscope itemtype="http://schema.org/AggregateRating">
+    
+
+
+
+<div class="i-stars i-stars--regular-<%= Math.floor(newbusiness[i].rating) %> rating-large" title="5.0 star rating">
+<img class="offscreen" height="303" src="https://s3-media2.fl.yelpcdn.com/assets/srv0/yelp_design_web/9b34e39ccbeb/assets/img/stars/stars.png" width="84" alt="5.0 star rating">
+</div>
+<meta itemprop="ratingValue" content="5.0">
+
+
+        <span class="review-count rating-qualifier">
+<span itemprop="reviewCount"><%= newbusiness[i].numreviews %></span> reviews
+</span>
+
+</div>
+
+<div class="price-category">
+        <span class="category-str-list">
+        Bakeries,
+        Specialty Food,
+        Desserts
 </span>
 
 
 </div>
 
 <small>
-        <span class="addr-city">Irvine, CA</span>
+<span class="addr-city">Irvine, CA</span>
 
 </small>
 
-    </div>
+</div>
 </div>
 
 </div>
 
 </div>
 
-            </h3>
-                    <div class="biz-rating biz-rating-large clearfix" >
-            
-
-
-
-<div class="i-stars i-stars--regular-5 rating-large" title="5.0 star rating">
-    <img class="offscreen" height="303" src="https://s3-media2.fl.yelpcdn.com/assets/srv0/yelp_design_web/9b34e39ccbeb/assets/img/stars/stars.png" width="84" alt="5.0 star rating">
-</div>
-
-
-                <span class="review-count rating-qualifier">
-        7 reviews
-</span>
-
-    </div>
-
-                <div class="price-category">
-                <span class="category-str-list">
-                Bakeries,
-                Specialty Food,
-                Desserts
-</span>
-
-
-</div>
-
-        <div class="city-state u-text-truncate u-space-t1 u-space-b1">
-                <span class="addr-city">Irvine, CA</span>
-
-        </div>
-    <p class="business-passport-card_date-opened">
-        <span aria-hidden="true" style="width: 18px; height: 18px;" class="icon icon--18-flame icon--size-18 icon--currentColor">
-<svg class="icon_svg">
-    <use xlink:href="#18x18_flame" />
-</svg>
-</span> Opened 3 weeks ago
-    </p>
-        </div>
-    </div>
-</div>
-
-        </div>
-
-        <div class="arrange_unit">
-                <div class="card business-passport-card">
-    <div class="card_photo">   
-<div class="photo-box photo-box--interactive photo-box--background" style="background-image: url(https://s3-media2.fl.yelpcdn.com/bphoto/uBHu1TbXnTbudFOHvd9uKg/l.jpg)">
-            <a href="/biz/king-almond-irvine" class="photo-box_link js-analytics-click" data-analytics-label="biz-photo">
-            <img alt="King Almond" class="photo-box-img" height="400" src="https://s3-media2.fl.yelpcdn.com/bphoto/uBHu1TbXnTbudFOHvd9uKg/l.jpg" srcset="https://s3-media2.fl.yelpcdn.com/bphoto/uBHu1TbXnTbudFOHvd9uKg/o.jpg 1.67x" width="600">
-
-    </a>
-
-</div>
-
-    </div>
-    <div class="card_body">
-        <div class="card_content">
-            <h3 class="card_content-title--linked u-text-truncate">
-                    
-<div class="business-link-hovercard js-business-link-hovercard">
-    <span class="business-link-hovercard_business-link js-business-link">
-                <a class="biz-name js-analytics-click" data-analytics-label="biz-name" href="/view-business/<%= newbusiness[1].id %>" data-hovercard-id="" ><span ><%= newbusiness[1].name %></span></a>
-
-    </span>
+    </h3>
+            <div class="biz-rating biz-rating-large clearfix" >
     
 
-<div class="js-business-hovercard u-break-word business-link-hovercard_hovercard u-hidden">
-        <div class="media-block media-block--12 biz-listing-medium">
-    <div class="media-avatar">
-                    <div class="photo-box pb-90s">
-            <a href="/view-business/<%= newbusiness[1].id %>" class="js-analytics-click" data-analytics-label="biz-photo">
-            <img alt="King Almond" class="photo-box-img" height="90" src="https://s3-media2.fl.yelpcdn.com/bphoto/uBHu1TbXnTbudFOHvd9uKg/90s.jpg" srcset="https://s3-media2.fl.yelpcdn.com/bphoto/uBHu1TbXnTbudFOHvd9uKg/ms.jpg 1.11x,https://s3-media2.fl.yelpcdn.com/bphoto/uBHu1TbXnTbudFOHvd9uKg/ls.jpg 2.78x,https://s3-media2.fl.yelpcdn.com/bphoto/uBHu1TbXnTbudFOHvd9uKg/120s.jpg 1.33x,https://s3-media2.fl.yelpcdn.com/bphoto/uBHu1TbXnTbudFOHvd9uKg/168s.jpg 1.87x,https://s3-media2.fl.yelpcdn.com/bphoto/uBHu1TbXnTbudFOHvd9uKg/258s.jpg 2.87x,https://s3-media2.fl.yelpcdn.com/bphoto/uBHu1TbXnTbudFOHvd9uKg/180s.jpg 2.00x" width="90">
 
-    </a>
 
+<div class="i-stars i-stars--regular-<%= Math.floor(newbusiness[i].rating) %>  rating-large" title="5.0 star rating">
+<img class="offscreen" height="303" src="https://s3-media2.fl.yelpcdn.com/assets/srv0/yelp_design_web/9b34e39ccbeb/assets/img/stars/stars.png" width="84" alt="5.0 star rating">
 </div>
 
 
-
-    </div>
-    <div class="media-story">
-            <div class="media-title clearfix">
-                <a class="biz-name js-analytics-click" data-analytics-label="biz-name" href="/biz/king-almond-irvine" data-hovercard-id="" ><span >King Almond</span></a>
-
-</div>
-        <div class="biz-rating biz-rating-large clearfix" itemprop="aggregateRating" itemscope itemtype="http://schema.org/AggregateRating">
-            
-
-
-
-<div class="i-stars i-stars--regular-5 rating-large" title="5.0 star rating">
-    <img class="offscreen" height="303" src="https://s3-media2.fl.yelpcdn.com/assets/srv0/yelp_design_web/9b34e39ccbeb/assets/img/stars/stars.png" width="84" alt="5.0 star rating">
-</div>
-    <meta itemprop="ratingValue" content="5.0">
-
-
-                <span class="review-count rating-qualifier">
-        <span itemprop="reviewCount">7</span> reviews
+        <span class="review-count rating-qualifier">
+<%= newbusiness[i].numreviews %> reviews
 </span>
 
-    </div>
+</div>
 
-    <div class="price-category">
-                <span class="category-str-list">
-                Bakeries,
-                Specialty Food,
-                Desserts
+        <div class="price-category">
+        <span class="category-str-list">
+        <%= newbusiness[i].category1 %>,
+        <%= newbusiness[i].category2 %>
 </span>
 
 
 </div>
 
-<small>
-        <span class="addr-city">Irvine, CA</span>
+<div class="city-state u-text-truncate u-space-t1 u-space-b1">
+        <span class="addr-city"><%= newbusiness[i].city %>,<%= newbusiness[i].state %></span>
 
-</small>
-
-    </div>
+</div>
+</div>
+</div>
 </div>
 
 </div>
+ <% } %>       
 
-</div>
-
-            </h3>
-                    <div class="biz-rating biz-rating-large clearfix" >
-            
-
-
-
-<div class="i-stars i-stars--regular-5 rating-large" title="5.0 star rating">
-    <img class="offscreen" height="303" src="https://s3-media2.fl.yelpcdn.com/assets/srv0/yelp_design_web/9b34e39ccbeb/assets/img/stars/stars.png" width="84" alt="5.0 star rating">
-</div>
-
-
-                <span class="review-count rating-qualifier">
-        7 reviews
-</span>
-
-    </div>
-
-                <div class="price-category">
-                <span class="category-str-list">
-                Bakeries,
-                Specialty Food,
-                Desserts
-</span>
-
-
-</div>
-
-        <div class="city-state u-text-truncate u-space-t1 u-space-b1">
-                <span class="addr-city">Irvine, CA</span>
-
-        </div>
-    <p class="business-passport-card_date-opened">
-        <span aria-hidden="true" style="width: 18px; height: 18px;" class="icon icon--18-flame icon--size-18 icon--currentColor">
-<svg class="icon_svg">
-    <use xlink:href="#18x18_flame" />
-</svg>
-</span> Opened 3 weeks ago
-    </p>
-        </div>
-    </div>
-</div>
-
-        </div>
-        <div class="arrange_unit">
-                <div class="card business-passport-card">
-    <div class="card_photo">   
-<div class="photo-box photo-box--interactive photo-box--background" style="background-image: url(https://s3-media2.fl.yelpcdn.com/bphoto/uBHu1TbXnTbudFOHvd9uKg/l.jpg)">
-            <a href="/biz/king-almond-irvine" class="photo-box_link js-analytics-click" data-analytics-label="biz-photo">
-            <img alt="King Almond" class="photo-box-img" height="400" src="https://s3-media2.fl.yelpcdn.com/bphoto/uBHu1TbXnTbudFOHvd9uKg/l.jpg" srcset="https://s3-media2.fl.yelpcdn.com/bphoto/uBHu1TbXnTbudFOHvd9uKg/o.jpg 1.67x" width="600">
-
-    </a>
-
-</div>
-
-    </div>
-    <div class="card_body">
-        <div class="card_content">
-            <h3 class="card_content-title--linked u-text-truncate">
-                    
-<div class="business-link-hovercard js-business-link-hovercard">
-    <span class="business-link-hovercard_business-link js-business-link">
-                <a class="biz-name js-analytics-click" data-analytics-label="biz-name" href="/view-business/<%= newbusiness[2].id %>" data-hovercard-id="" ><span ><%= newbusiness[2].name %></span></a>
-
-    </span>
-    
-
-<div class="js-business-hovercard u-break-word business-link-hovercard_hovercard u-hidden">
-        <div class="media-block media-block--12 biz-listing-medium">
-    <div class="media-avatar">
-                    <div class="photo-box pb-90s">
-            <a href="/view-business/<%= newbusiness[2].id %>" class="js-analytics-click" data-analytics-label="biz-photo">
-            <img alt="King Almond" class="photo-box-img" height="90" src="https://s3-media2.fl.yelpcdn.com/bphoto/uBHu1TbXnTbudFOHvd9uKg/90s.jpg" srcset="https://s3-media2.fl.yelpcdn.com/bphoto/uBHu1TbXnTbudFOHvd9uKg/ms.jpg 1.11x,https://s3-media2.fl.yelpcdn.com/bphoto/uBHu1TbXnTbudFOHvd9uKg/ls.jpg 2.78x,https://s3-media2.fl.yelpcdn.com/bphoto/uBHu1TbXnTbudFOHvd9uKg/120s.jpg 1.33x,https://s3-media2.fl.yelpcdn.com/bphoto/uBHu1TbXnTbudFOHvd9uKg/168s.jpg 1.87x,https://s3-media2.fl.yelpcdn.com/bphoto/uBHu1TbXnTbudFOHvd9uKg/258s.jpg 2.87x,https://s3-media2.fl.yelpcdn.com/bphoto/uBHu1TbXnTbudFOHvd9uKg/180s.jpg 2.00x" width="90">
-
-    </a>
-
-</div>
-
-
-
-    </div>
-    <div class="media-story">
-            <div class="media-title clearfix">
-                <a class="biz-name js-analytics-click" data-analytics-label="biz-name" href="/biz/king-almond-irvine" data-hovercard-id="" ><span >King Almond</span></a>
-
-</div>
-        <div class="biz-rating biz-rating-large clearfix" itemprop="aggregateRating" itemscope itemtype="http://schema.org/AggregateRating">
-            
-
-
-
-<div class="i-stars i-stars--regular-5 rating-large" title="5.0 star rating">
-    <img class="offscreen" height="303" src="https://s3-media2.fl.yelpcdn.com/assets/srv0/yelp_design_web/9b34e39ccbeb/assets/img/stars/stars.png" width="84" alt="5.0 star rating">
-</div>
-    <meta itemprop="ratingValue" content="5.0">
-
-
-                <span class="review-count rating-qualifier">
-        <span itemprop="reviewCount">7</span> reviews
-</span>
-
-    </div>
-
-    <div class="price-category">
-                <span class="category-str-list">
-                Bakeries,
-                Specialty Food,
-                Desserts
-</span>
-
-
-</div>
-
-<small>
-        <span class="addr-city">Irvine, CA</span>
-
-</small>
-
-    </div>
-</div>
-
-</div>
-
-</div>
-
-            </h3>
-                    <div class="biz-rating biz-rating-large clearfix" >
-            
-
-
-
-<div class="i-stars i-stars--regular-5 rating-large" title="5.0 star rating">
-    <img class="offscreen" height="303" src="https://s3-media2.fl.yelpcdn.com/assets/srv0/yelp_design_web/9b34e39ccbeb/assets/img/stars/stars.png" width="84" alt="5.0 star rating">
-</div>
-
-
-                <span class="review-count rating-qualifier">
-        7 reviews
-</span>
-
-    </div>
-
-                <div class="price-category">
-                <span class="category-str-list">
-                Bakeries,
-                Specialty Food,
-                Desserts
-</span>
-
-
-</div>
-
-        <div class="city-state u-text-truncate u-space-t1 u-space-b1">
-                <span class="addr-city">Irvine, CA</span>
-
-        </div>
-    <p class="business-passport-card_date-opened">
-        <span aria-hidden="true" style="width: 18px; height: 18px;" class="icon icon--18-flame icon--size-18 icon--currentColor">
-<svg class="icon_svg">
-    <use xlink:href="#18x18_flame" />
-</svg>
-</span> Opened 3 weeks ago
-    </p>
-        </div>
-    </div>
-</div>
-
-        </div>
+     
 
 <div class="u-space-t2 u-text-centered">
     <a class="js-analytics-click explore-city_see-all" data-analytics-label="link-more" href="/search?attrs=NewBusiness" >See more hot and new businesses</a>
 </div>
 
     </div>
-    <% } %>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="javascripts/search.js"></script>
 </body>
 </html>

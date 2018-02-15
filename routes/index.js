@@ -7,12 +7,12 @@ var auth = require('../utils/auth');
 /* GET home page. */
 router.get('/', function(req, res, next) {
   if (!req.session.user){
-    client.query("SELECT * FROM business ORDER BY id DESC")
+    client.query("SELECT * FROM business ORDER BY id DESC LIMIT 3")
     .then(result=>{
       res.render('index', { title: 'Express',user:'none',newbusiness:result[0]});
     });
   }else{
-    client.query("SELECT * FROM business ORDER BY id DESC")
+    client.query("SELECT * FROM business ORDER BY id DESC LIMIT 3")
     .then(result=>{
       res.render('index', { title: 'Express',user:req.session.user,newbusiness:result[0]});
     });
@@ -104,37 +104,29 @@ router.get('/view-personal/:id',function(req,res,next){
     res.render('viewpersonal',{login:login,user:user,reviews:result[0]});
   }).catch(err=>console.log(err));}
 });
-router.post('/search/:searchterm',function(req,res,next){
+router.get('/search/:searchterm',function(req,res,next){
+  var query = `SELECT * FROM business WHERE name ILIKE '%${req.params.searchterm}%' OR category1 ILIKE '%test1%' OR category2 ILIKE '%$test2%'`;
+  client.query(query)
+  .then(result=>{
+    if (!req.session.user){
+        res.render('searchresults', { title: 'Express',user:'none',newbusiness:result[0]});
+    }else{
+        res.render('searchresults', { title: 'Express',user:req.session.user,newbusiness:result[0]});
+    }
+  }).catch(err=>console.log(err));
+});
+router.get('/search/:searchterm/:location',function(req,res,next){
   var toreturn = [];
   if (req.body.location != undefined){
     var city = req.body.location.split(",")[0];
     var state = req.body.location.split(",")[1];
     if (state != undefined){
-      var query = `SELECT * FROM business WHERE name ILIKE '%${req.params.searchterm}%' AND city ILIKE '%${city}%' AND state ILIKE '%${state}%'`;
+      var query = `SELECT * FROM business WHERE name ILIKE '%${req.params.searchterm}%' OR category1 ILIKE '%${req.params.searchterm}%' OR category2 ILIKE '%${req.params.searchterm}' AND city ILIKE '%${city}%' AND state ILIKE '%${state}%'`;
     }else{
       if (req.body.location.length < 3){
-        var query = `SELECT * FROM business WHERE name ILIKE '%${req.params.searchterm}%' AND state ILIKE '%${city}%'`
+        var query = `SELECT * FROM business WHERE name ILIKE '%${req.params.searchterm}%' OR category1 ILIKE '%${req.params.searchterm}%' OR category2 ILIKE '%${req.params.searchterm}' AND state ILIKE '%${city}%'`
       }else{
-        var query = `SELECT * FROM business WHERE name ILIKE '%${req.params.searchterm}%' AND city ILIKE '%${city}%'`
-      }
-    }
-  }else{
-    var query = `SELECT * FROM business WHERE name ILIKE '%${req.params.searchterm}%'`;
-  }
-  client.query(query)
-  .then(result=>{
-    toreturn = toreturn.concat(result[0]);
-  }).catch(err=>console.log(err));
-  if (req.body.location != undefined){
-    var city = req.body.location.split(",")[0];
-    var state = req.body.location.split(",")[1];
-    if (state != undefined){
-      var query = `SELECT * FROM business WHERE category1 ILIKE '%${req.params.searchterm}%' OR category2 ILIKE '%${req.params.searchterm}' AND city ILIKE '%${city}%' AND state ILIKE '%${state}%'`;
-    }else{
-      if (req.body.location.length < 3){
-        var query = `SELECT * FROM business WHERE category1 ILIKE '%${req.params.searchterm}%' OR category2 ILIKE '%${req.params.searchterm}' AND state ILIKE '%${city}%'`
-      }else{
-        var query = `SELECT * FROM business WHERE category1 ILIKE '%${req.params.searchterm}%' OR category2 ILIKE '%${req.params.searchterm}' AND city ILIKE '%${city}%'`
+        var query = `SELECT * FROM business WHERE name ILIKE '%${req.params.searchterm}%' OR category1 ILIKE '%${req.params.searchterm}%' OR category2 ILIKE '%${req.params.searchterm}' AND city ILIKE '%${city}%'`
       }
     }
   }else{
@@ -142,8 +134,12 @@ router.post('/search/:searchterm',function(req,res,next){
   }
   client.query(query)
   .then(result=>{
-    toreturn = toreturn.concat(result[0]);
-    res.send(toreturn);
+    toreturn = toreturn.concat()
+    if (!req.session.user){
+        res.render('searchresults', { title: 'Express',user:'none',newbusiness:result[0]});
+    }else{ 
+        res.render('searchresults', { title: 'Express',user:req.session.user,newbusiness:result[0]});
+    }
   }).catch(err=>console.log(err));
 });
 module.exports = router;
