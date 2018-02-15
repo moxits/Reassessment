@@ -22,6 +22,10 @@ $('#submit-button').click(function(event){
         data:updatedUser,
         type:"POST"
     }).done(function(json){
-        window.location.replace("/business");
+        if (json != "INCORRECT PASSWORD"){
+            window.location.replace("/business");
+        }else{
+            alert('Incorrect Password');
+        }
      }) ;
 });

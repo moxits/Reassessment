@@ -14,7 +14,7 @@ router.get('/', function(req, res, next) {
 });
 
 router.post('/newreview',auth.requireLogin,function(req,res,next){
-  var businessname;
+  let business = '';
   client.query(`UPDATE personal SET numreviews = numreviews+1 WHERE id='${req.session.user.id}'`)
   .catch(err=>console.log(err))
   client.query("SELECT * FROM business WHERE id=:id",
@@ -102,6 +102,8 @@ router.post('/update-personal',auth.requireLogin,function(req,res,next){
         req.session.user = result[0][0];
         res.send("SUCCESS");})
       .catch(err=>res.status(400).send(err));
+  }else{
+    res.send("INCORRECT PASSWORD");
   }
 }).catch(err=>res.status(400).send(err));
 });
@@ -121,6 +123,8 @@ router.post('/update-business',auth.requireLogin,function(req,res,next){
         req.session.user = result[0][0];
         res.send("SUCCESS");})
       .catch(err=>console.log(err));
+  }else{
+    res.send("INCORRECT PASSWORD");
   }
 }).catch(err=>console.log(err));
 });
@@ -128,6 +132,7 @@ router.post('/bookmark/:businessid',auth.requireLogin,function(req,res,next){
   let query = `UPDATE personal SET bookmarks = array_append(bookmarks,'${req.params.businessid}') WHERE id = '${req.session.user.id}' RETURNING *`
   client.query(query)
   .then(result=>{
+    req.session.user = result[0][0];
     res.send(result[0]);
   }).catch(err=>console.log(err));
 });
@@ -135,6 +140,7 @@ router.post('/deletebookmark',auth.requireLogin,function(req,res,next){
   let query = `UPDATE personal SET bookmarks = array_remove(bookmarks,'${req.body.businessid}') WHERE id = '${req.session.user.id}' RETURNING *`;
   client.query(query)
   .then(result=>{
+    req.session.user = result[0][0];
     res.send(result[0]);
   }).catch(err=>console.log(err));
 })

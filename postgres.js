@@ -12,9 +12,9 @@ sequelize
   .catch(err => {
     console.error('Unable to connect to the database:', err);
   });
-sequelize.query('CREATE TABLE IF NOT EXISTS personal(id SERIAL PRIMARY KEY,type VARCHAR(50),name VARCHAR(50), email VARCHAR(100), password VARCHAR(100),zipcode INT,city VARCHAR(100),state VARCHAR(100),numreviews INT DEFAULT 0,bookmarks INT[])');
-sequelize.query('CREATE TABLE IF NOT EXISTS business(id SERIAL PRIMARY KEY,type VARCHAR(50),name VARCHAR(50),email VARCHAR(50),password VARCHAR(100),zipcode INT,city VARCHAR(100),state VARCHAR(100),address VARCHAR(100),phone VARCHAR(20),website VARCHAR(50),description VARCHAR(10000),category1 VARCHAR(100),category2 VARCHAR(100),rating INT DEFAULT 0,numreviews INT DEFAULT 0,reviews INT[])')
-sequelize.query('CREATE TABLE IF NOT EXISTS reviews(id SERIAL PRIMARY KEY,userid VARCHAR(50),day DATE,business VARCHAR(50),content VARCHAR(10000),rating INT)');
+sequelize.query('CREATE TABLE IF NOT EXISTS personal(id SERIAL PRIMARY KEY,type VARCHAR(50),name VARCHAR(50), email VARCHAR(100), password VARCHAR(100),zipcode INT,city VARCHAR(100),state VARCHAR(100),numreviews INT DEFAULT 0,bookmarks INT[] DEFAULT [],photo VARCHAR(10000))');
+sequelize.query('CREATE TABLE IF NOT EXISTS business(id SERIAL PRIMARY KEY,type VARCHAR(50),name VARCHAR(50),email VARCHAR(50),password VARCHAR(100),zipcode INT,city VARCHAR(100),state VARCHAR(100),address VARCHAR(100),phone VARCHAR(20),website VARCHAR(50),description VARCHAR(10000),category1 VARCHAR(100),category2 VARCHAR(100),rating INT DEFAULT 0,numreviews INT DEFAULT 0,reviews INT[],photo VARCHAR(10000))')
+sequelize.query('CREATE TABLE IF NOT EXISTS reviews(id SERIAL PRIMARY KEY,city VARCHAR(50),state VARCHAR(50),name VARCHAR(50),photo VARCHAR(10000),userid VARCHAR(50),day DATE,business VARCHAR(50),businessname VARCHAR(50),content VARCHAR(10000),rating INT)');
 
 
 module.exports =sequelize;

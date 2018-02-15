@@ -293,11 +293,50 @@
                 </div>
                     <div class="feeds feed-module">
             <ul class="content-list">
-                                <li data-section-id="self">
-            <p class="no-recent-activity nobtm">
-                    We don't have any recent activity for you right now.
-            </p>
-        </li>
+                
+                    <% for(var i=reviews.length-1; 0<=i; i--) {%>
+                        <li data-section-id="self">
+                     <ul class="ylist ylist-bordered">
+                     <li class="review-block media-block media-block--12" data-item-type="review">
+                             <div class="media-avatar">
+                 <div class="photo-box pb-60s">
+                         <a class="js-analytics-click" data-analytics-label="user-photo" href="/user_details?userid=MAV7Ljn1cU4HxhSbb6PXrg">
+                             <img alt="" class="photo-box-img" height="60" src="https://s3-media2.fl.yelpcdn.com/assets/srv0/yelp_styleguide/514f6997a318/assets/img/default_avatars/user_60_square.png" width="60">
+                         </a>
+                 </div>
+                             </div>
+                             <div class="media-story">
+                 <div class="feed-content ieSucks">
+                     <div class="media-title item-title clearfix">
+                         <div class="title-text">
+                                 <%= user.name %> wrote a <b>review</b> for     <a class="biz-name js-analytics-click" data-analytics-label="biz-name" href="/view-business/<%=reviews[i].business %>" data-hovercard-id="kWUGY-1j3avDxhSOxnjEvA"><%= reviews[i].businessname %></a>
+                         </div>
+                         <div class="time-stamp">
+                             <%= reviews[i].day %>
+                         </div>
+                     </div>
+                     <div class="item-description">
+                     <div class="biz-rating biz-rating-large clearfix">
+                     <div >
+                 <div class="i-stars i-stars--regular-<%= reviews[i].rating %> rating-large" title="3.0 star rating">
+                     <img class="offscreen" height="303" src="https://s3-media2.fl.yelpcdn.com/assets/srv0/yelp_design_web/9b34e39ccbeb/assets/img/stars/stars.png" width="84" alt="3.0 star rating">
+                 </div>
+                     </div>
+                         <span class="rating-qualifier">
+                     <%= reviews[i].day %>
+                 </span>
+             
+                 </div>
+                     <p class="js-content-expandable">
+                             <span class="js-content-toggleable">
+                                 <%= reviews[i].content %>
+                             </span>
+                     </p>
+                     </div>
+                 </div>
+                             </div>
+                         </li> 
+                  <%  } %>
     
     
             </ul>

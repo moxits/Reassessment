@@ -167,7 +167,7 @@
                 </div>
                     <div class="feeds feed-module">
             <ul class="content-list">
-      <% for(var i=reviews.length-1; (reviews.length-3)<=i; i--) {%>
+     <% for(var i=reviews.length-1; 0<=i; i--) {%>
            <li data-section-id="self">
         <ul class="ylist ylist-bordered">
         <li class="review-block media-block media-block--12" data-item-type="review">
@@ -182,7 +182,7 @@
     <div class="feed-content ieSucks">
         <div class="media-title item-title clearfix">
             <div class="title-text">
-                    <%= user.name %> wrote a <b>review</b> for     <a class="biz-name js-analytics-click" data-analytics-label="biz-name" href="/biz/the-del-bar-lake-delton-3?hrid=KMQnxTVrpz2NvgCBUM4POg" data-hovercard-id="kWUGY-1j3avDxhSOxnjEvA">The Del-bar</a>
+                    <%= user.name %> wrote a <b>review</b> for     <a class="biz-name js-analytics-click" data-analytics-label="biz-name" href="/view-business/<%=reviews[i].business %>" data-hovercard-id="kWUGY-1j3avDxhSOxnjEvA"><%= reviews[i].businessname %></a>
             </div>
             <div class="time-stamp">
                 <%= reviews[i].day %>

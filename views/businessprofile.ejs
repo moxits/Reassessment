@@ -5,8 +5,352 @@
     <link rel='stylesheet' href='/stylesheets/style.css' />
     <link rel="stylesheet" href="https://s3-media2.fl.yelpcdn.com/assets/srv0/homepage/5a57af5e7478/assets/css/homepage-pkg.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" media="all" href="https://s3-media4.fl.yelpcdn.com/assets/2/www/css/318398ec09ec/www-pkg.css">
+    <link rel="stylesheet" type="text/css" media="all" href="https://s3-media3.fl.yelpcdn.com/assets/2/www/css/015ac64acd6a/user_details-pkg.css">
+    
+  </head>
+  <body>
+    
+  <noscript>
+    <link rel="stylesheet" href="https://s3-media2.fl.yelpcdn.com/assets/srv0/svg_icons/1421d1203d09/assets/sprite.css">
+</noscript>
+<% include header.ejs %>
+
+<div class="main-content-wrap main-content-wrap--full">
+        <div class="top-shelf top-shelf-grey">
+                <div class="content-container">
+                    
+        <div id="alert-container">
+    
+        </div>
+    
+    
+                        <div class="user-profile_container">
+            <div class="user-profile_avatar">
+                <div class="photo-slideshow photo-slideshow--full-width photo-slideshow--rounded js-photo-slideshow-user-details">
+                    <div class="photo-slideshow_slide is-active" style="background-image: url(https://s3-media4.fl.yelpcdn.com/assets/srv0/yelp_styleguide/7e4e0dfd903f/assets/img/default_avatars/user_large_square.png);">
+                        <div class="photo-slideshow_image">
+                                        <a href="/user_photos?userid=MAV7Ljn1cU4HxhSbb6PXrg">
+                
+                    <img class="photo-box-img" height="250" src="https://s3-media4.fl.yelpcdn.com/assets/srv0/yelp_styleguide/7e4e0dfd903f/assets/img/default_avatars/user_large_square.png" width="250">
+    
+    
+            </a>
+    
+    
+                        </div>
+                            
+    
+      
+    
+                    </div>
+                </div>
+            </div>
+            <div class="user-profile_content-wrapper arrange arrange--bottom arrange--30">
+                <div class="user-profile_avatar-dummy arrange_unit" aria-hidden="true"></div>
+                <div class="user-profile_info arrange_unit">
+                    <h1><%= user.name %></h1>
+                        <h3 class="user-location alternate"><%= user.city %>, <%=user.state %></h3>
+                    <div class="clearfix">
+                        
+    
+                        <div class="biz-main-info embossed-text-white">
+                            <div class="rating-info clearfix">
+                                        <div class="biz-rating biz-rating-very-large clearfix" >
+                                
+                      
+                      
+                      
+                      
+                      <div class="i-stars i-stars--large-<%= Math.floor(user.rating) %> rating-very-large" title="5.0 star rating">
+                        <img class="offscreen" height="303" src="https://s3-media2.fl.yelpcdn.com/assets/srv0/yelp_design_web/9b34e39ccbeb/assets/img/stars/stars.png" width="84" alt="5.0 star rating">
+                      </div>
+                      
+                      
+                      
+                                    <span class="review-count rating-qualifier">
+                            <%=user.numreviews %> reviews
+                      </span>
+                      
+                        </div>
+                        <ul class="action-link-list">
+                            <li>
+                                
+                    
+                    
+                        <a class="arrange arrange--middle" href="/business-profile" rel="">
+                            <div class="action-link_icon arrange_unit">
+                                <span aria-hidden="true" style="width: 18px; height: 18px;" class="icon icon--18-feed icon--size-18 icon--currentColor">
+                        <svg class="icon_svg">
+                            <use xlink:href="#18x18_feed" />
+                        </svg>
+                    </span>
+                            </div>
+                            <div class="action-link_label arrange_unit arrange_unit--fill">
+                         Update Your Profile
+                            </div>
+                        </a>
+                    
+                            </li>
+                    
+                           
+                    
+                    
+                        </ul>
+                    
+                                </div>
+                      
+                      
+                            </div>
+    
+                    </div>
+                    
+                </div>
+                <div class="biz-page-header-right u-relative">
+                    <div class="biz-page-actions nowrap"> 
+         
+          </div>
+            </div>
+        </div>
+    
+    
+                    
+    
+                </div>
+        </div>
+    
+                        <div id="super-container" class="content-container">
+    
+        <div class="clearfix layout-block layout-n user-details_container">
+        <div class="column column-alpha user-details_sidebar">
+                    <div class="ysection">
+                        
+    
+        <div class="titled-nav js-titled-nav">
+            
+        <input id="titled-nav-db377759-3032-4042-b221-4dce77b93849" class="titled-nav-dropdown_handler" type="checkbox" role="presentation">
+    
+        <div class="titled-nav-dropdown hidden-non-responsive-block responsive-hidden-large">
+            <label for="titled-nav-db377759-3032-4042-b221-4dce77b93849" class="titled-nav-dropdown_trigger">
+                <span class="arrange arrange--middle titled-nav-dropdown_content">
+                    <span class="arrange_unit arrange_unit--fill titled-nav-dropdown_shadow">
+                        <span class="titled-nav-dropdown_faded-title">
+                                <strong><%= user.name %>'sProfile</strong>
+    
+                            Business Overview
+    
+                        </span>
+                    </span>
+    
+                    <span class="arrange_unit titled-nav-dropdown_icon">
+                        <span aria-hidden="true" style="width: 24px; height: 24px;" class="icon icon--24-chevron-down icon--size-24 titled-nav-dropdown_expand">
+        <svg class="icon_svg">
+            <use xlink:href="#24x24_chevron_down" />
+        </svg>
+    </span>
+                        <span aria-hidden="true" style="width: 24px; height: 24px;" class="icon icon--24-chevron-up icon--size-24 titled-nav-dropdown_collapse">
+        <svg class="icon_svg">
+            <use xlink:href="#24x24_chevron_up" />
+        </svg>
+    </span>
+                    </span>
+                </span>
+            </label>
+        </div>
+    
+    
+            <div class="titled-nav_menus">
+                    
+    
+            <div class="titled-nav_menu">
+                    <div class="titled-nav-header">
+            <div class="arrange arrange--top">
+    
+                <div class="arrange_unit arrange_unit--fill">
+                    <div class="titled-nav-header_content">
+                        <h3><%= user.name %>'s Profile</h3>
+                    </div>
+                </div>
+    
+                <div class="arrange_unit">
+                </div>
+    
+            </div>
+        </div>
+    
+                <ul class="titled-nav_items">
+                        
+    
+        <li class="titled-nav_item">
+            <a class="titled-nav_link is-active" >
+                    <div class="titled-nav_link-content arrange arrange--middle arrange--6">
+    
+                <div class="arrange_unit">
+                    <span aria-hidden="true" style="width: 24px; height: 24px;" class="icon icon--24-profile icon--size-24 titled-nav_icon">
+        <svg class="icon_svg">
+            <use xlink:href="#24x24_profile" />
+        </svg>
+    </span>
+                </div>
+    
+            <div class="arrange_unit arrange_unit--fill">
+                <span class="titled-nav_link-label">Business Overview</span>
+            </div>
+    
+    
+            
+    
+        </div>
+    
+            </a>
+    
+        </li>
+                </ul>
+            </div>
+    
+                <div class="titled-nav-header responsive-hidden-large" role="presentation"></div>
+            </div>
+        </div>
+    
+                    </div>
+        </div>
+        <div class="column column-beta ">
+        <div class="user-details-overview">
+            <div class="user-details-overview_activity">
+             
+        
+    
+                    
+    
+                        <div class="user-details-overview_reviews">
+                        <div class="review-drafts-container js-review-drafts-container">
+    
+                    
+    
+        </div>
+    
+    
+                    
+    
+        </div>
+    
+                        <div class="user-details-overview_self-feed">
+            <div class="ysection clearfix activity-feed js-activity-feed">
+                <div class="section-header u-space-bottom-none">
+                    <h2>Reviews</h2>
+                </div>
+                    <div class="feeds feed-module">
+            <ul class="content-list">
+                
+                    <% for(var i=reviews.length-1; 0<=i; i--) {%>
+                        <li data-section-id="self">
+                     <ul class="ylist ylist-bordered">
+                     <li class="review-block media-block media-block--12" data-item-type="review">
+                             <div class="media-avatar">
+                 <div class="photo-box pb-60s">
+                         <a class="js-analytics-click" data-analytics-label="user-photo" href="/user_details?userid=MAV7Ljn1cU4HxhSbb6PXrg">
+                             <img alt="" class="photo-box-img" height="60" src="https://s3-media2.fl.yelpcdn.com/assets/srv0/yelp_styleguide/514f6997a318/assets/img/default_avatars/user_60_square.png" width="60">
+                         </a>
+                 </div>
+                             </div>
+                             <div class="media-story">
+                 <div class="feed-content ieSucks">
+                     <div class="media-title item-title clearfix">
+                         <div class="title-text">
+                                 <a href="/view-personal/<%= reviews[i].userid %>"><%= reviews[i].name %></a> wrote a <b>review</b> 
+                         </div>
+                         <div class="time-stamp">
+                             <%= reviews[i].day %>
+                         </div>
+                     </div>
+                     <div class="item-description">
+                     <div class="biz-rating biz-rating-large clearfix">
+                     <div >
+                 <div class="i-stars i-stars--regular-<%= reviews[i].rating %> rating-large" title="3.0 star rating">
+                     <img class="offscreen" height="303" src="https://s3-media2.fl.yelpcdn.com/assets/srv0/yelp_design_web/9b34e39ccbeb/assets/img/stars/stars.png" width="84" alt="3.0 star rating">
+                 </div>
+                     </div>
+                         <span class="rating-qualifier">
+                     <%= reviews[i].day %>
+                 </span>
+             
+                 </div>
+                     <p class="js-content-expandable">
+                             <span class="js-content-toggleable">
+                                 <%= reviews[i].content %>
+                             </span>
+                     </p>
+                     </div>
+                 </div>
+                             </div>
+                         </li> 
+                  <%  } %>
+    
+    
+            </ul>
+        </div>
+    
+            </div>
+            
+    
+            
+        </div>
+    
+    
+            </div>
+            <div class="user-details-overview_sidebar">
+    
+                <h3>About <%= user.name %></h3>
+    
+                <div class="ysection">
+                        <ul class="ylist">
+                <li>
+                    <h4>Address</h4>
+                    <p><%= user.address %></p>
+                    <p><%=user.city %>, <%=user.state %> <%= user.zipcode %></p>
+                </li>
+                <li>
+                    <h4>Phone Number</h4>
+                    <p><%= user.phone %></p>
+                
+                </li>
+                <li>
+                    <h4>Website</h4>
+                    <p><%= user.website %></p>
+                </li>
+                <li>
+                  <h4>Description</h4>
+                  <p> <%= user.description %></p>
+                </li>
+                <li>
+                    <img alt="Map" height="135" src="https://maps.googleapis.com/maps/api/staticmap?scale=2&amp;center=33.740201%2C-117.819464&amp;language=None&amp;zoom=15&amp;markers=scale%3A2%7Cicon%3Ahttps%3A%2F%2Fyelp-images.s3.amazonaws.com%2Fassets%2Fmap-markers%2Fannotation_64x86.png%7C33.740201%2C-117.819464&amp;client=gme-yelp&amp;sensor=false&amp;size=286x135&amp;signature=QhdB1LLWV0fsSZ2xhN_-8eZenZw=" width="286">
+                </li>
+        </ul>
+    
+                </div>
+    
+                    
+    
+            </div>
+        </div>
+        </div>
+        </div>
+    
+    
+            
+                        </div>
+                    </div>
+                    </body>
+                    </html>
+<!-- <!DOCTYPE HTML>
+<html>
+  <head>
+    <title>ReviewR</title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link rel="stylesheet" href="https://s3-media2.fl.yelpcdn.com/assets/srv0/homepage/5a57af5e7478/assets/css/homepage-pkg.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" media="all" href="https://s3-media4.fl.yelpcdn.com/assets/2/www/css/318398ec09ec/www-pkg.css"> <!--<![endif]-->
-    <link rel="stylesheet" type="text/css" media="all" href="https://s3-media1.fl.yelpcdn.com/assets/2/www/css/fde61d3d0fbf/biz_details-pkg.css">
+    <!-- <link rel="stylesheet" type="text/css" media="all" href="https://s3-media1.fl.yelpcdn.com/assets/2/www/css/fde61d3d0fbf/biz_details-pkg.css">
   </head>
   <body>
     
@@ -445,4 +789,4 @@
 
 
 </body>
-</html>
+</html> --> 
