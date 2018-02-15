@@ -14,11 +14,14 @@ router.get('/', function(req, res, next) {
 });
 
 router.post('/newreview',auth.requireLogin,function(req,res,next){
+  var businessname;
   client.query(`UPDATE personal SET numreviews = numreviews+1 WHERE id='${req.session.user.id}'`)
   .catch(err=>console.log(err))
   client.query("SELECT * FROM business WHERE id=:id",
   {replacements:{id:req.body.businessid}})
   .then(result=>{
+    console.log(result[0][0].name);
+    businessname = result[0][0].name;
     var agg = (result[0][0].rating*result[0][0].numreviews);
     var agg2 = (agg +parseFloat(req.body.rating));
     var newRating = agg2/(result[0][0].numreviews + 1);
@@ -27,12 +30,10 @@ router.post('/newreview',auth.requireLogin,function(req,res,next){
   .then(results=>{
   }).catch(err=>console.log(err))
   }).catch(err=>console.log(err));
-  client.query("INSERT INTO reviews(userid,business,day,content,rating) VALUES(:us,:bus,CURRENT_DATE,:description,:num) RETURNING *",
-  {replacements:{us:req.session.user.id,bus:req.body.businessid,description:req.body.content,num:req.body.rating}})
+  client.query(`INSERT INTO reviews(userid,business,businessname,city,state,photo,name,day,content,rating) VALUES('${req.session.user.id}','${req.body.businessid}','${businessname}','${req.session.user.city}','${req.session.user.state}','${req.session.user.photo}','${req.session.user.name}',CURRENT_DATE,'${req.body.content}','${req.body.rating}') RETURNING *`)
   .then(result=>{
     res.send(result[0][0]);
   }).catch(err=>console.log(err));
-
 });
 router.post('/register',function(req,res){
 
@@ -123,8 +124,8 @@ router.post('/update-business',auth.requireLogin,function(req,res,next){
   }
 }).catch(err=>console.log(err));
 });
-router.post('/bookmark',auth.requireLogin,function(req,res,next){
-  let query = `UPDATE personal SET bookmarks = array_append(bookmarks,'${req.body.businessid}') WHERE id = '${req.session.user.id}' RETURNING *`
+router.post('/bookmark/:businessid',auth.requireLogin,function(req,res,next){
+  let query = `UPDATE personal SET bookmarks = array_append(bookmarks,'${req.params.businessid}') WHERE id = '${req.session.user.id}' RETURNING *`
   client.query(query)
   .then(result=>{
     res.send(result[0]);
