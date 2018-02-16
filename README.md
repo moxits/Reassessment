@@ -40,6 +40,7 @@ where the appropriate changes to the rating and number of reviews should occur. 
 users have wrote. The reviews a user writes will appear on their profile page.
 
 TECHNOLOGIES
+
 HTML/CSS
 Javascript
 nodeJs 
