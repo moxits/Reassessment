@@ -129,7 +129,7 @@ router.get('/writereview/:id',auth.requireLogin,function(req,res,next){
 router.get('/view-business/:id',function(req,res,next){
   var type='personal';
   var login;
-  var bookmarked = 'false';
+  var bookmarked = 'Bookmark';
   client.query("SELECT * FROM business WHERE id = :id",
   {replacements:{id:req.params.id}})
   .then(result=>{
@@ -143,7 +143,7 @@ router.get('/view-business/:id',function(req,res,next){
         login = "true";
         if (req.session.user.type == 'personal'){
           if (req.session.user.bookmarks.includes(parseInt(req.params.id))){
-            bookmarked = 'true';
+            bookmarked = 'Remove Bookmark';
           }
           type ='personal';
         }else{

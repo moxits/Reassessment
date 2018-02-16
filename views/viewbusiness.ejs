@@ -21,8 +21,7 @@
         <span class="navbar-toggler-icon"></span>
       </button>
       <form class="form-inline my-2 my-lg-0">
-        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+        <button class="btn btn-outline-success my-2 my-sm-0"><a href="/">Search</a></button>
       </form>
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
@@ -124,13 +123,13 @@
           </span>Write A Review
           </a>
           <span class="ybtn-group clearfix">
-          <a style="right:29px" value="<%= user.id %>" id="bookmark" class="ybtn ybtn--small bookmark-button js-action-bar-bookmark-button not-bookmarked" >
+          <a style="right:29px" value="<%= bookmarked %>" id="bookmark" class="ybtn ybtn--small bookmark-button js-action-bar-bookmark-button not-bookmarked" >
                 <span aria-hidden="true" style="width: 18px; height: 18px;" class="icon icon--18-bookmark icon--size-18 icon--currentColor">
           <svg class="icon_svg">
             <use xlink:href="#18x18_bookmark" />
           </svg>
           </span>
-                <span id="checktext" class="js-popup-link-text"></span>
+                <span id="checktext" class="js-popup-link-text"><%= bookmarked %></span>
           </a>
           </span>
           <% } %>
@@ -364,17 +363,9 @@
                     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
                     </body>
                     <script>
-  $(document).ready(function(){
-      if ($('#bookmark').val()!='true')
-      {
-          $("#checktext").text('Remove Bookmark');
-      }
-      else {
-          $("#checktext").text('Bookmark');
-      }
-  })
   $("#bookmark").on("click",function(e) {
     e.preventDefault(); // cancel the link itself
+    console.log($('#bookmark').val())
     if ($("#checktext").text() == 'Bookmark'){
       $.ajax({
         type:"POST",
