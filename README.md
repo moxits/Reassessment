@@ -41,12 +41,12 @@ users have wrote. The reviews a user writes will appear on their profile page.
 
 TECHNOLOGIES
 
-HTML/CSS
-Javascript
-nodeJs 
-PostgreSQL
-Sequelize library 
-Raw queries 
-Unit testing with mocha/chai
-Express
-Styling: Bootstrap,yelpcdn
+1.HTML/CSS
+2.Javascript
+3.nodeJs 
+4.PostgreSQL
+5.Sequelize library 
+6.Raw queries 
+7.Unit testing with mocha/chai
+8.Express
+9.Styling: Bootstrap,yelpcdn
