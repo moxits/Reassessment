@@ -74,7 +74,7 @@
                     
 
     <li class="titled-nav_item">
-        <a class="titled-nav_link is-active" href="/profile">
+        <a class="titled-nav_link is-active" >
                 <div class="titled-nav_link-content arrange arrange--middle arrange--6">
 
 
@@ -112,28 +112,29 @@
             <div class="profile-bio">
 
                 <div class="ysection">
-                    <h4>Your Profile Photo
-                            <form method="post" enctype="multipart/form-data" action="/upload">
-                                <input type="file" name="file">
-                                <input type="submit" value="Submit">
-                            </form>
-                    </h4>
+                    <h4>Your Profile Photo</h4>
                         
 
 
 
 
     <div class="photo-box pb-m">
-            <a class="js-analytics-click" data-analytics-label="user-photo" href="/user_photos?return_url=%2Fprofile">
-                <img alt="" class="photo-box-img" src="https://s3-media3.fl.yelpcdn.com/assets/srv0/yelp_styleguide/bf5ff8a79310/assets/img/default_avatars/user_medium_square.png">
+            <a>
+                <img alt="" class="photo-box-img" width=250p height=250 src=<%= user.photo %> >
             </a>
     </div>
 
                 </div>
-                                <label for="name" >Name</label>
+        <label for="photourl" >Photo URL</label>
+    <span class="help-block">Enter the URL of a photo you want as your profile picture.</span>
+    <input id="photourl" maxlength="10000" name="photourl" placeholder="" size="30" type="text" value=<%=user.photo%>>
+        
+        
+                                
+    <label for="name" >Name</label>
 
         <span class="help-block">This field is required.</span>
-    <input id="name" maxlength="32" name="name" placeholder="" size="30" type="text" value=<%=user.name %> required>
+    <input id="name" maxlength="100" name="name" placeholder="" size="30" type="text" value=<%=user.name %> required>
 
 
 

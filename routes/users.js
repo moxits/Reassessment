@@ -50,7 +50,7 @@ router.post('/register',function(req,res){
           {replacements:{type:req.body.type,name:req.body.name,email:req.body.email,password:hashed}})
             .then(result=>{
               req.session.user = result[0][0];
-              res.send(result[0]);
+              res.send(result[0][0]);
             }).catch(err => console.log(err));
         }
       }).catch(err=>console.log(err));
@@ -111,12 +111,13 @@ router.post('/update-personal',auth.requireLogin,function(req,res,next){
       var hashed;
       if (req.body.newpassword != ''){ hashed = passwordHash.generate(req.body.newpassword);}
       else{hashed = passwordHash.generate(req.body.password);} 
-      client.query("UPDATE personal SET name=:name,password=:password,zipcode=:zipcode,city=:city,state=:state WHERE email = :email RETURNING *",
-      {replacements:{name:req.body.name,password:hashed,zipcode:req.body.zipcode,city:req.body.city,state:req.body.state,email:req.session.user.email}})
+      client.query("UPDATE personal SET name=:name,password=:password,zipcode=:zipcode,city=:city,state=:state,photo=:photo WHERE email = :email RETURNING *",
+      {replacements:{name:req.body.name,password:hashed,zipcode:req.body.zipcode,city:req.body.city,state:req.body.state,photo:req.body.photo,email:req.session.user.email}})
       .then(result=>{
         req.session.user = result[0][0];
-        res.send("SUCCESS");})
-      .catch(err=>res.status(400).send(err));
+        res.send(result[0][0]);
+      })
+      .catch(err=>console.log(err));
   }else{
     res.send("INCORRECT PASSWORD");
   }
@@ -136,7 +137,8 @@ router.post('/update-business',auth.requireLogin,function(req,res,next){
       {replacements:{name:req.body.name,password:hashed,zipcode:req.body.zipcode,website:req.body.website,phone:req.body.phone,address:req.body.address,city:req.body.city,state:req.body.state,category1:req.body.category1,category2:req.body.category2,description:req.body.description,email:req.session.user.email}})
       .then(result=>{
         req.session.user = result[0][0];
-        res.send("SUCCESS");})
+        res.send(result[0][0]);
+      })
       .catch(err=>console.log(err));
   }else{
     res.send("INCORRECT PASSWORD");
@@ -148,7 +150,7 @@ router.post('/bookmark/:businessid',auth.requireLogin,function(req,res,next){
   client.query(query)
   .then(result=>{
     req.session.user = result[0][0];
-    res.send(result[0]);
+    res.send(result[0][0]);
   }).catch(err=>console.log(err));
 });
 router.post('/deletebookmark',auth.requireLogin,function(req,res,next){
@@ -156,7 +158,7 @@ router.post('/deletebookmark',auth.requireLogin,function(req,res,next){
   client.query(query)
   .then(result=>{
     req.session.user = result[0][0];
-    res.send(result[0]);
+    res.send(result[0][0]);
   }).catch(err=>console.log(err));
 })
 

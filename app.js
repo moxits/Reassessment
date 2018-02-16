@@ -12,9 +12,7 @@ var index = require('./routes/index');
 var users = require('./routes/users');
 var reviews = require('./routes/reviews')
 
-//var client = require('./postgres.js');
-//client.connect();		//Establish connection with client
-//var currentClient = client.getClient();
+
 var app = express();
 
 // view engine setup

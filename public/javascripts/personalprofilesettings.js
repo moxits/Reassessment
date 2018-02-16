@@ -4,7 +4,7 @@ $('#submit-button').click(function(event){
     event.preventDefault();
     updatedUser = {
         name:$('input[name=name]').val(),
-       
+        photo:$('input[name=photourl]').val(),
         zipcode:$('input[name=zipcode]').val(),
         city:$('input[name=city]').val(),
         state:$('input[name=state]').val(),

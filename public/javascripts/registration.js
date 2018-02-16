@@ -6,6 +6,7 @@ $('#register-button').click(function(){
         email:$('input[name=email]').val(),
         password:$('input[name=password]').val()
     };
+    if (newUser.name != '' && newUser.email != '' && newUser.password != ''){
         $.ajax({
             url:"/users/register",
             data: newUser,
@@ -25,4 +26,7 @@ $('#register-button').click(function(){
                 }
             }
         })
+    }else{
+        alert('All fields are required');
+    }
 });
