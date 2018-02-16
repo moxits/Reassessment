@@ -60,9 +60,9 @@
                         <div class="user-profile_container">
             <div class="user-profile_avatar">
                 <div class="photo-slideshow photo-slideshow--full-width photo-slideshow--rounded js-photo-slideshow-user-details">
-                    <div class="photo-slideshow_slide is-active" style="background-image: url(https://s3-media4.fl.yelpcdn.com/assets/srv0/yelp_styleguide/7e4e0dfd903f/assets/img/default_avatars/user_large_square.png);">
+                    <div class="photo-slideshow_slide is-active" style="background-image: url(<%= user.photo %>);">
                         <div class="photo-slideshow_image">
-                                        <a href="/user_photos?userid=MAV7Ljn1cU4HxhSbb6PXrg">
+                                        <a >
                 
                     <img class="photo-box-img" height="250" src="https://s3-media4.fl.yelpcdn.com/assets/srv0/yelp_styleguide/7e4e0dfd903f/assets/img/default_avatars/user_large_square.png" width="250">
     
@@ -130,13 +130,7 @@
             <use xlink:href="#18x18_bookmark" />
           </svg>
           </span>
-                <span id="checktext" class="js-popup-link-text">
-                     <% if(bookmarked != 'true'){ %>
-                        Bookmark
-                    <% }else{ %>
-                        Remove Bookmark
-                    <% } %>
-                </span>
+                <span id="checktext" class="js-popup-link-text"></span>
           </a>
           </span>
           <% } %>
@@ -275,8 +269,8 @@
                      <li class="review-block media-block media-block--12" data-item-type="review">
                              <div class="media-avatar">
                  <div class="photo-box pb-60s">
-                         <a class="js-analytics-click" data-analytics-label="user-photo" href="/user_details?userid=MAV7Ljn1cU4HxhSbb6PXrg">
-                             <img alt="" class="photo-box-img" height="60" src="https://s3-media2.fl.yelpcdn.com/assets/srv0/yelp_styleguide/514f6997a318/assets/img/default_avatars/user_60_square.png" width="60">
+                         <a class="js-analytics-click" data-analytics-label="user-photo">
+                             <img alt="" class="photo-box-img" height="60" width="60" src=<%= reviews[i].photo %>>
                          </a>
                  </div>
                              </div>
@@ -349,9 +343,6 @@
                   <h4>Description</h4>
                   <p> <%= user.description %></p>
                 </li>
-                <li>
-                    <img alt="Map" height="135" src="https://maps.googleapis.com/maps/api/staticmap?scale=2&amp;center=33.740201%2C-117.819464&amp;language=None&amp;zoom=15&amp;markers=scale%3A2%7Cicon%3Ahttps%3A%2F%2Fyelp-images.s3.amazonaws.com%2Fassets%2Fmap-markers%2Fannotation_64x86.png%7C33.740201%2C-117.819464&amp;client=gme-yelp&amp;sensor=false&amp;size=286x135&amp;signature=QhdB1LLWV0fsSZ2xhN_-8eZenZw=" width="286">
-                </li>
         </ul>
     
                 </div>
@@ -373,7 +364,15 @@
                     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
                     </body>
                     <script>
-          
+  $(document).ready(function(){
+      if ($('#bookmark').val()!='true')
+      {
+          $("#checktext").text('Remove Bookmark');
+      }
+      else {
+          $("#checktext").text('Bookmark');
+      }
+  })
   $("#bookmark").on("click",function(e) {
     e.preventDefault(); // cancel the link itself
     if ($("#checktext").text() == 'Bookmark'){
@@ -397,459 +396,3 @@
   });
                     </script>
                     </html>
-<!-- <!DOCTYPE HTML>
-<html>
-  <head>
-    <title>ReviewR</title>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
-    <link rel="stylesheet" href="https://s3-media2.fl.yelpcdn.com/assets/srv0/homepage/5a57af5e7478/assets/css/homepage-pkg.css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
-    <link rel="stylesheet" type="text/css" media="all" href="https://s3-media4.fl.yelpcdn.com/assets/2/www/css/318398ec09ec/www-pkg.css"> <!--<![endif]-->
-    <!-- <link rel="stylesheet" type="text/css" media="all" href="https://s3-media1.fl.yelpcdn.com/assets/2/www/css/fde61d3d0fbf/biz_details-pkg.css">
-  </head>
-  <body>
-    
-  <noscript>
-    <link rel="stylesheet" href="https://s3-media2.fl.yelpcdn.com/assets/srv0/svg_icons/1421d1203d09/assets/sprite.css">
-</noscript>
-<div id = "navbar-custom">
-    <nav  class="navbar navbar-expand-lg navbar-light bg-light">
-      <a class="navbar-brand" href="#">ReviewR</a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <form class="form-inline my-2 my-lg-0">
-        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-      </form>
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav mr-auto">
-              <li class="nav-item active">
-                <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
-              </li>
-              <% if(login == 'true'){ %>
-              <li class="nav-item">
-                <a class="nav-link" href="/users/logout">Logout</a>
-              </li>
-             <% } else{%>
-              <li class="nav-item">
-                  <a class="nav-link" href="/login-page">Login</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/signup-page">Sign Up</a>
-                  </li>
-                  <% } %>
-            </ul>
-          </div>
-</nav>
-</div> -->
-
-<!-- <div class="top-shelf">
-  <div class="content-container js-biz-details">
-      
-<div id="alert-container">
-
-</div>
-
-
-          <div class="hidden">
-      <div itemscope itemtype="http://schema.org/LocalBusiness">
-  
-
-    
-
-
-      <meta itemprop="image" content="https://s3-media1.fl.yelpcdn.com/bphoto/RHjjYELEdr0N_gZK3TOpFQ/ls.jpg">
-
-      <meta itemprop="priceRange" content="$$" />
-
-      <meta itemprop="name" content="Bon Epi Macaron" />
-
-      <address itemprop="address" itemscope itemtype="http://schema.org/PostalAddress">
-  <span itemprop="streetAddress">13812 Newport Ave</span><br><span itemprop="addressLocality">Tustin</span>, <span itemprop="addressRegion">CA</span> <span itemprop="postalCode">92780</span><br><meta content="US" itemprop="addressCountry">
-</address>
-
-      <span itemprop="telephone">
-  (657) 247-5558
-</span>
-
-
-
-
-</div>
-
-</div>
-
-
-
-
-
-<div class="biz-page-header clearfix">
-  <div class="biz-page-header-left claim-status">
-
-      
-
-
-
-<div class="u-space-t1">
-  <h1 class="biz-page-title embossed-text-white shortenough">
-      <%= user.name %>
-  </h1>
-                      <div class="u-nowrap claim-status_teaser js-claim-status-hover">
-
-  <a href="https://biz.yelp.com/signup/teu2igG-FtE455XXTbOE6Q/account?utm_campaign=claim_business&amp;utm_content=claim_status_link&amp;utm_medium=www&amp;utm_source=biz_page_unclaimed" class="js-biz-page-claim-link">
-    
-  </a>
-</div>
-
-
- 
-
-
-
-</div>
-
-
-
-<div class="biz-main-info embossed-text-white">
-      <div class="rating-info clearfix">
-                  <div class="biz-rating biz-rating-very-large clearfix" >
-          
-
-
-
-
-<div class="i-stars i-stars--large-<%= Math.floor(user.rating) %> rating-very-large" title="5.0 star rating">
-  <img class="offscreen" height="303" src="https://s3-media2.fl.yelpcdn.com/assets/srv0/yelp_design_web/9b34e39ccbeb/assets/img/stars/stars.png" width="84" alt="5.0 star rating">
-</div>
-
-
-
-              <span class="review-count rating-qualifier">
-      <%=user.numreviews %> reviews
-</span>
-
-  </div>
-
-
-
-      </div>
-
-  <div class="price-category">
-              <span class="bullet-after">
-      
- 
-      <span class="category-str-list">
-              <a href="/c/tustin-ca-us/desserts"><%= user.category1 %></a>,
-              <a href="/c/tustin-ca-us/macarons"><%= user.category2 %></a>
-</span>
-
-
-
-
-
-  </div>
-</div>
-
-
-      <script>
-      (function() {
-          var main = null;
-
-          var main=function(c){var d=window.performance||window.mozPerformance||window.msPerformance||window.webkitPerformance;if(d){var a=d.mark||d.mozPerformance||d.msMark||d.webkitMark;var b=d.clearMarks||d.mozClearMarks||d.msClearMarks||d.webkitClearMarks;if(typeof a==="function"&&typeof b==="function"){b.call(d,c);a.call(d,c)}}};
-
-          if (main === null) {
-              throw 'invalid inline script, missing main declaration.';
-          }
-          main("yelp_header_title");
-      })();
-</script>
-  </div>
-  <div class="biz-page-header-right u-relative">
-          <div class="biz-page-actions nowrap"> 
-<% if(type == 'personal'){ %>
-<a class="ybtn ybtn--primary war-button" href="/writereview/<%= user.id %>"> 
-      <span aria-hidden="true" style="width: 24px; height: 24px;" class="icon icon--24-star icon--size-24 icon--currentColor u-space-r-half icon--fallback-inverted">
-<svg class="icon_svg">
-  <use xlink:href="#24x24_star" />
-</svg>
-</span>Write A Review
-</a>
-<span class="ybtn-group clearfix">
-<a class="ybtn ybtn--small bookmark-button js-action-bar-bookmark-button not-bookmarked" data-bookmark-button-position="action-bar" data-ro-mode-action="add a bookmark" data-signup-object="biz_id:teu2igG-FtE455XXTbOE6Q" href="/users/bookmark/<%=user.id %>">
-      <span aria-hidden="true" style="width: 18px; height: 18px;" class="icon icon--18-bookmark icon--size-18 icon--currentColor">
-<svg class="icon_svg">
-  <use xlink:href="#18x18_bookmark" />
-</svg>
-</span>
-      <span class="js-popup-link-text">Bookmark</span>
-</a>
-</span>
-<% } %>
-</div>
-
-<small class="u-absolute u-sticky-right">
-      <span class="js-edit-bookmark-link u-pseudo-link" data-has-note="false">
-</span>
-
-</small>
-
-  </div>
-
-  
-</div>
-
-<div class="biz-page-subheader">
-  <div class="mapbox-container">
-          <div class="mapbox" data-lightbox-page-title="Directions - Bon Epi Macaron - Tustin, CA">
-      <div class="mapbox-map">
-  <a href="/map/bon-epi-macaron-tustin" class="biz-map-directions">
-              
-<img alt="Map" height="135" src="https://maps.googleapis.com/maps/api/staticmap?scale=2&amp;center=33.740201%2C-117.819464&amp;language=None&amp;zoom=15&amp;markers=scale%3A2%7Cicon%3Ahttps%3A%2F%2Fyelp-images.s3.amazonaws.com%2Fassets%2Fmap-markers%2Fannotation_64x86.png%7C33.740201%2C-117.819464&amp;client=gme-yelp&amp;sensor=false&amp;size=286x135&amp;signature=QhdB1LLWV0fsSZ2xhN_-8eZenZw=" width="286">
-
-
-  </a>
-  <div
-      class="lightbox-map hidden"
-      data-map-state="{&#34;overlay_width&#34;: 335, &#34;fit_to_geobox&#34;: false, &#34;should_draw_checkbox&#34;: false, &#34;max_zoomlevel&#34;: null, &#34;mo_map_possible&#34;: true, &#34;is_full_bleed&#34;: false, &#34;library&#34;: &#34;google&#34;, &#34;min_zoomlevel&#34;: null, &#34;service_areas&#34;: [], &#34;zoom&#34;: 15, &#34;markers&#34;: {&#34;directions_marker&#34;: {&#34;location&#34;: null, &#34;key&#34;: &#34;directions_marker&#34;, &#34;icon&#34;: {&#34;regular_uri&#34;: &#34;https://s3-media2.fl.yelpcdn.com/assets/2/www/img/79f63ebc20db/ico/yelp_map/directions@2x.png&#34;, &#34;scaled_size&#34;: [24, 32], &#34;anchor_offset&#34;: [12, 32], &#34;name&#34;: &#34;directions&#34;, &#34;active_origin&#34;: [0, 0], &#34;active_uri&#34;: &#34;https://s3-media2.fl.yelpcdn.com/assets/2/www/img/7249ab345ac8/ico/yelp_map/directions_highlighted@2x.png&#34;, &#34;regular_origin&#34;: [0, 0], &#34;size&#34;: [24, 32]}}, &#34;starred_business&#34;: {&#34;url&#34;: &#34;/biz/bon-epi-macaron-tustin&#34;, &#34;location&#34;: {&#34;latitude&#34;: 33.7402012, &#34;longitude&#34;: -117.819464}, &#34;key&#34;: &#34;starred_business&#34;, &#34;hovercard_id&#34;: &#34;ve0ZaDGhNjwXRch0nr_uQQ&#34;, &#34;resource_type&#34;: &#34;business&#34;, &#34;icon&#34;: {&#34;regular_uri&#34;: &#34;https://s3-media2.fl.yelpcdn.com/assets/2/www/img/7ffd8e34c576/ico/yelp_map/annotation_star@2x.png&#34;, &#34;scaled_size&#34;: [24, 32], &#34;anchor_offset&#34;: [12, 32], &#34;name&#34;: &#34;starred&#34;, &#34;active_origin&#34;: [0, 0], &#34;active_uri&#34;: &#34;https://s3-media2.fl.yelpcdn.com/assets/2/www/img/63e0e17c0579/ico/yelp_map/annotation_star_highlighted@2x.png&#34;, &#34;regular_origin&#34;: [0, 0], &#34;size&#34;: [24, 32]}}, &#34;current_location&#34;: {&#34;location&#34;: null, &#34;key&#34;: &#34;current_location&#34;, &#34;icon&#34;: {&#34;regular_uri&#34;: &#34;https://s3-media3.fl.yelpcdn.com/assets/2/www/img/56b9eee3f027/ico/yelp_map/current_location_dot@2x.png&#34;, &#34;scaled_size&#34;: [46, 46], &#34;anchor_offset&#34;: [23, 23], &#34;name&#34;: &#34;current_location&#34;, &#34;active_origin&#34;: [0, 0], &#34;active_uri&#34;: &#34;https://s3-media3.fl.yelpcdn.com/assets/2/www/img/56b9eee3f027/ico/yelp_map/current_location_dot@2x.png&#34;, &#34;regular_origin&#34;: [0, 0], &#34;size&#34;: [46, 46]}}}, &#34;top_biz_bounds&#34;: null, &#34;zoom_control_position&#34;: &#34;top_right&#34;, &#34;market&#34;: null, &#34;ad_pin_color&#34;: null, &#34;hoods&#34;: [], &#34;scrollwheel_zoom&#34;: false, &#34;center&#34;: {&#34;latitude&#34;: 33.7402012, &#34;longitude&#34;: -117.819464}}"
-      data-business-id="teu2igG-FtE455XXTbOE6Q"
-      data-location-dropper-uri="/locations"
-      
-  >
-              <div class="map-wrapper">
-      <div class="side-box">
-          
-      </div>
-
-  <div class="yelp-map-container directions-map">
-      <div class="engine-container"></div>
-  </div>
-</div>
-
-
-  </div>
-</div>
-
-      <div class="mapbox-text">
-  <ul>
-      <li class="u-relative">
-          <span aria-hidden="true" style="width: 18px; height: 18px;" class="icon icon--18-marker icon--size-18 u-absolute u-sticky-top">
-<svg class="icon_svg">
-  <use xlink:href="#18x18_marker" />
-</svg>
-</span>
-  
-<div class="map-box-address u-space-l4">
-      <strong class="street-address">
-                      <address>
-  <%= user.address %><br><%= user.city %>, <%= user.state %> <%= user.zipcode %>
-</address>
-
-
-      </strong>
-
-      
-</div>
-
-      </li>
-
-          <li class="clearfix">
-              <div>
-                  <span aria-hidden="true" style="width: 18px; height: 18px;" class="icon icon--18-directions icon--size-18">
-<svg class="icon_svg">
-  <use xlink:href="#18x18_directions" />
-</svg>
-</span>
-                      <a href="/map/bon-epi-macaron-tustin" class="biz-directions">Get Directions</a>
-
-              </div>
-          </li>
-
-          <li>
-              <span aria-hidden="true" style="width: 18px; height: 18px;" class="icon icon--18-phone icon--size-18">
-<svg class="icon_svg">
-  <use xlink:href="#18x18_phone" />
-</svg>
-</span>
-              
-<span class="offscreen">Phone number</span>
-<span class="biz-phone">
-  <%= user.phone %>
-</span>
-
-          </li>
-          <li>
-            <span aria-hidden="true" style="width: 18px; height: 18px;" class="icon icon--18-phone icon--size-18">
-<svg class="icon_svg">
-<use xlink:href="#18x18_phone" />
-</svg>
-</span>
-            
-<span class="offscreen">Website</span>
-<span class="biz-phone">
-<a href="https://www."<%= user.website %>> <%= user.website %> </a>
-</span>
-  </ul>
-</div>
-
-</div>
-
-      
-      
-
-      <span itemscope class="hidden" itemtype="http://data-vocabulary.org/Breadcrumb">
-              <a href="/c/tustin-ca-us/food" itemprop="url">
-                  <span itemprop="title">Food</span>
-              </a>
-
-
-      <span itemscope itemprop="child" itemtype="http://data-vocabulary.org/Breadcrumb">
-              <a href="/c/tustin-ca-us/desserts" itemprop="url">
-                  <span itemprop="title">Desserts</span>
-              </a>
-
-
-  </span></span>
-
-      <span itemscope class="hidden" itemtype="http://data-vocabulary.org/Breadcrumb">
-              <a href="/c/tustin-ca-us/food" itemprop="url">
-                  <span itemprop="title">Food</span>
-              </a>
-
-
-      <span itemscope itemprop="child" itemtype="http://data-vocabulary.org/Breadcrumb">
-              <a href="/c/tustin-ca-us/gourmet" itemprop="url">
-                  <span itemprop="title">Specialty Food</span>
-              </a>
-
-
-      <span itemscope itemprop="child" itemtype="http://data-vocabulary.org/Breadcrumb">
-              <a href="/c/tustin-ca-us/macarons" itemprop="url">
-                  <span itemprop="title">Macarons</span>
-              </a>
-
-
-  </span></span></span>
-
-  </div>
-  <div class="showcase-container">
-          
-
-<div class="showcase-container_inner showcase showcase-3-photo">
-
-  <div class="top-shelf-grey"></div>
-
-  <div class="showcase-footer-links">
-      
-  </div>
-
-
-
-  <div class="lightbox-media-parent" data-ad-logging-csrf="25bf1718e3791f0292cb0fa344f709d1755138f08e1e8c7597e050ce18e5196b" data-ad-logging-uri="/ad_acknowledgment" data-ga-path="media_lightbox/servlet:biz_details/type:biz" data-logging-csrf="4f5a9f9f1a52e25f1d402cd1bfff5a64ec3aca42730e544d023d61f15743672a" data-logging-uri="/biz_photos/teu2igG-FtE455XXTbOE6Q/log_views" data-media-count="20" data-media-url="/biz_photos/get_media_slice/teu2igG-FtE455XXTbOE6Q" data-starting-index="0">
-      <div class="showcase-photos">
-                  
-
-
-
-
-      </div>
-  </div>
-
-</div>
-
-  </div>
-</div>
-
-  </div>
-</div>
-<div class="container">
-<div class ="feed">
-    <div class="review-list">
-        <ul class="ylist ylist-bordered reviews">
-            <% for(var i=reviews.length-1; 0<=i; i--) {%>
-          <li>
-              <div class="review review--with-sidebar" data-review-id="1EiecyARDJvWeunDcHNAWA" data-signup-object="user_id:vKLkfULTRTlA6sSHU8nxaw">
-          <div class="review-sidebar">
-      <div class="review-sidebar-content">
-              <div class="ypassport media-block">
-      <div class="media-avatar responsive-photo-box">
-                      <div class="photo-box pb-60s" data-hovercard-id="RvvZ-9ytmfNWUlskd-OcHg">
-              <a href="/user_details?userid=vKLkfULTRTlA6sSHU8nxaw" class="js-analytics-click" data-analytics-label="user-photo">
-              <img alt="chuck h." class="photo-box-img" height="60" src="https://s3-media1.fl.yelpcdn.com/photo/o0NgvfN-m4y15WVPKapiSw/60s.jpg" srcset="https://s3-media1.fl.yelpcdn.com/photo/o0NgvfN-m4y15WVPKapiSw/90s.jpg 1.50x,https://s3-media1.fl.yelpcdn.com/photo/o0NgvfN-m4y15WVPKapiSw/168s.jpg 2.80x,https://s3-media1.fl.yelpcdn.com/photo/o0NgvfN-m4y15WVPKapiSw/ms.jpg 1.67x,https://s3-media1.fl.yelpcdn.com/photo/o0NgvfN-m4y15WVPKapiSw/180s.jpg 3.00x,https://s3-media1.fl.yelpcdn.com/photo/o0NgvfN-m4y15WVPKapiSw/120s.jpg 2.00x" width="60">
-
-      </a>
-    </div>
-  </div>
-  <div class="media-story">
-          <ul class="user-passport-info">
-  <li class="user-name">
-              <a class="user-display-name js-analytics-click" href="/view-personal/<%= reviews[i].userid %>" data-hovercard-id="RvvZ-9ytmfNWUlskd-OcHg" data-analytics-label="about_me" id="dropdown_user-name"><%= reviews[i].name %></a>
-  </li>
-  <li class="user-location responsive-hidden-small">
-      <b><%= reviews[i].city %>, <%= reviews[i].state %></b>
-  </li>
-</ul>
-
-      
-
-<ul class="user-passport-stats">
-
-</ul>
-
-  </div>
-</div>
-              
-
-  </div>
-</div>
-
-  <div class="review-wrapper">
-          <div class="review-content">
-      <div class="biz-rating biz-rating-large clearfix">
-  <div >
-              
-
-
-
-<div class="i-stars i-stars--regular-<%= reviews[i].rating %> rating-large" >
-  <img class="offscreen" height="303" src="https://s3-media2.fl.yelpcdn.com/assets/srv0/yelp_design_web/9b34e39ccbeb/assets/img/stars/stars.png" width="84" alt="4.0 star rating">
-</div>
-
-
-
-  </div>
-      <span class="rating-qualifier">
-  <%= reviews[i].day %>
-</span>
-
-</div>
-
-  
-          <p lang="en"><%= reviews[i].content %></p> 
-</div>
-  <div class="review-footer clearfix">
-              <div class="rateReview voting-feedback" data-review-id="1EiecyARDJvWeunDcHNAWA">
-              <p class="voting-intro voting-prompt">
-  </div>
-</div>
-
-
-
-
-  </div>
-</div>
-
-  </li>
-
-
-      <% } %>
-        </ul>
-</div>
-</div>
-<div class="column column-beta sidebar">
-    <div class="open-rail clearfix">
-      </div>
-      </div>
-    </div> -->
-<!-- </body>
-</html> -->

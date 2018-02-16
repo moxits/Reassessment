@@ -133,8 +133,8 @@ router.post('/update-business',auth.requireLogin,function(req,res,next){
       if (req.body.newpassword != ''){ hashed = passwordHash.generate(req.body.newpassword);}
       else{hashed = passwordHash.generate(req.body.password);} 
       console.log(req.session.user.email);
-      client.query("UPDATE business SET name=:name,password=:password,zipcode=:zipcode,website=:website,phone=:phone,address=:address,city=:city,state=:state,category1=:category1,category2=:category2,description=:description WHERE email=:email RETURNING *",
-      {replacements:{name:req.body.name,password:hashed,zipcode:req.body.zipcode,website:req.body.website,phone:req.body.phone,address:req.body.address,city:req.body.city,state:req.body.state,category1:req.body.category1,category2:req.body.category2,description:req.body.description,email:req.session.user.email}})
+      client.query("UPDATE business SET name=:name,password=:password,zipcode=:zipcode,website=:website,phone=:phone,address=:address,city=:city,state=:state,category1=:category1,category2=:category2,description=:description,photo=:photo WHERE email=:email RETURNING *",
+      {replacements:{name:req.body.name,password:hashed,zipcode:req.body.zipcode,website:req.body.website,phone:req.body.phone,address:req.body.address,city:req.body.city,state:req.body.state,category1:req.body.category1,category2:req.body.category2,description:req.body.description,photo:req.body.photo,email:req.session.user.email}})
       .then(result=>{
         req.session.user = result[0][0];
         res.send(result[0][0]);

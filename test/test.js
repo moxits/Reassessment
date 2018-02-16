@@ -41,11 +41,12 @@ describe('Home Page Get Functions',function(){
     })
 });
 describe('Register Functions',function(){
-    before(function() {
+    before(function(done) {
         client.query('TRUNCATE personal');
         client.query('TRUNCATE business');
         client.query('ALTER SEQUENCE personal_id_seq RESTART');
         client.query('ALTER SEQUENCE business_id_seq RESTART');
+        done();
       });
     it('Should register a new unique user to the personal table',function(done){
         chai.request(server)
@@ -134,6 +135,7 @@ describe('Update Functions',function(){
             password:'notcorrect',
             zipcode:12345,
             city:'Fremont',
+            photo:'http://jennstrends.com/wp-content/uploads/2013/10/bad-profile-pic-2.jpeg',
             state:'CA',
         }
         agent.post('/users/login')
@@ -155,6 +157,7 @@ describe('Update Functions',function(){
             'newpassword':'',
             'password':'test',
             'zipcode':12345,
+            photo:'http://jennstrends.com/wp-content/uploads/2013/10/bad-profile-pic-2.jpeg',
             'city':'Fremont',
             'state':'CA',
         }
@@ -186,6 +189,7 @@ describe('Update Functions',function(){
             address:'38453 Garway Drive',
             category1:'Food',
             category2:'Plates',
+            photo:'http://jennstrends.com/wp-content/uploads/2013/10/bad-profile-pic-2.jpeg',
             description:'Food Business',
         }
         agent.post('/users/login')
@@ -215,6 +219,7 @@ describe('Update Functions',function(){
             category1:'Food',
             category2:'Plates',
             description:'Food Business',
+            photo:'http://jennstrends.com/wp-content/uploads/2013/10/bad-profile-pic-2.jpeg'
         }
         agent.post('/users/login')
             .send({"type":'business','email':'test@test.com','password':'test'})
@@ -245,6 +250,7 @@ describe('Update Functions',function(){
             category1:'Food',
             category2:'Plates',
             description:'Food Business',
+            photo:'http://jennstrends.com/wp-content/uploads/2013/10/bad-profile-pic-2.jpeg'
         }
         agent.post('/users/login')
             .send({"type":'business','email':'test@test.com','password':'test'})
@@ -300,11 +306,14 @@ describe('Bookmark Functions',function(){
     })
 })
 describe('Review Test',function(){
-    after(function(){
+    after(function(done){
         client.query('TRUNCATE personal');
         client.query('TRUNCATE business');
+        client.query('TRUNCATE reviews');
+        client.query('ALTER SEQUENCE reviews_id_seq RESTART');
         client.query('ALTER SEQUENCE personal_id_seq RESTART');
         client.query('ALTER SEQUENCE business_id_seq RESTART');
+        done();
     })
     it('Writes A Review',function(done){
         review = {

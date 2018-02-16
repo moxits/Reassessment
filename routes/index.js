@@ -18,11 +18,22 @@ router.get('/', function(req, res, next) {
     });
   }
 });
-router.get('/viewbookmarks',function(req,res,next){
-  client.query(`SELECT * FROM business WHERE ARRAY[id] <@ ARRAY[${req.session.user.bookmarks}]`)
-  .then(result=>{
-    res.render('bookmarks', { title: 'Express',user:req.session.user,newbusiness:result[0]});
-  });
+router.get('/viewbookmarks',auth.requireLogin,function(req,res,next){
+  if (req.session.user.type == 'personal'){
+    if (req.session.user.bookmarks.length != 0){
+      client.query(`SELECT * FROM business WHERE ARRAY[id] <@ ARRAY[${req.session.user.bookmarks}]`)
+      .then(result=>{
+        res.render('bookmarks', { title: 'Express',user:req.session.user,newbusiness:result[0]});
+      }).catch(err=>console.log(err));
+    }else{
+      res.render('bookmarks',{title:'Express',user:req.session.user,newbusiness:[]});
+    }
+  }else{
+    client.query("SELECT * FROM business ORDER BY id DESC LIMIT 3")
+      .then(result=>{
+        res.render('index', { title: 'Express',user:req.session.user,newbusiness:result[0]});
+    }).catch(err=>console.log(err));
+  }
 });
 router.get('/signup-page',function(req,res,next){
   res.render('signup');

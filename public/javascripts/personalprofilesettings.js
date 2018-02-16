@@ -11,15 +11,22 @@ $('#submit-button').click(function(event){
         newpassword:$('input[name=newpassword]').val(),
         password:$('input[name=password]').val(),
     }
-    $.ajax({
-        url:"/users/update-personal",
-        data:updatedUser,
-        type:"POST"
-    }).done(function(json){
-        if (json != "INCORRECT PASSWORD"){
-            window.location.replace("/personal");
-        }else{
-            alert('Incorrect Password');
-        }
-    });
+    var check = parseInt(updatedUser.zipcode);
+    console.log(Number.isInteger(check));
+    if (Number.isInteger(check)){
+        $.ajax({
+            url:"/users/update-personal",
+            data:updatedUser,
+            type:"POST"
+        }).done(function(json){
+            console.log(json);
+            if (json != "INCORRECT PASSWORD"){
+                window.location.replace("/personal");
+            }else{
+                alert('Incorrect Password');
+            }
+        });
+    }else{
+        alert("Zipcode must be integer values only");
+    }
 });

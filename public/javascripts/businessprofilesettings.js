@@ -3,6 +3,7 @@ var updatedUser;
 $('#submit-button').click(function(event){
     event.preventDefault();
     updatedUser = {
+        photo:$('input[name=photourl]').val(),
         name:$('input[name=name]').val(),
         website:$('input[name=website]').val(),
         phone:$('input[name=phone]').val(),
@@ -16,16 +17,21 @@ $('#submit-button').click(function(event){
         newpassword:$('input[name=newpassword]').val(),
         password:$('input[name=password]').val(),
     }
-    console.log(updatedUser.address);
-    $.ajax({
-        url:"/users/update-business",
-        data:updatedUser,
-        type:"POST"
-    }).done(function(json){
-        if (json != "INCORRECT PASSWORD"){
-            window.location.replace("/business");
-        }else{
-            alert('Incorrect Password');
-        }
-     }) ;
+    var check = parseInt(updatedUser.zipcode);
+    console.log(Number.isInteger(check));
+    if(Number.isInteger(check)){
+        $.ajax({
+            url:"/users/update-business",
+            data:updatedUser,
+            type:"POST"
+        }).done(function(json){
+            if (json != "INCORRECT PASSWORD"){
+                window.location.replace("/business");
+            }else{
+                alert('Incorrect Password');
+            }
+        });
+    }else{
+        alert("Zipcode must be an integer");
+    }
 });

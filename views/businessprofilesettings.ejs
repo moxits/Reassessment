@@ -121,12 +121,12 @@
         
                         </div>
                 <label for="photourl" >Photo URL</label>
-            <span class="help-block">Enter the URL of a photo you want as your profile picture.</span>
+            <span class="help-block">Enter the URL of a photo you want as your profile picture. This field is required.</span>
             <input id="photourl" maxlength="10000" name="photourl" placeholder="" size="30" type="text" value=<%=user.photo%>>
                                 <label for="name" >Business Name</label>
 
         <span class="help-block">This field is required.</span>
-    <input id="name" maxlength="32" name="name" placeholder="" size="30" type="text" value=<%=user.name %> required>
+    <input id="name" maxlength="50" name="name" placeholder="" size="30" type="text" value=<%=user.name %> required>
 
 <label for="website" >Website</label>
 
@@ -154,7 +154,7 @@
 <label for="state" >State</label>
 
 <span class="help-block">This field is required.Please use abbreviated state name.</span>
-<input id="state" maxlength="36" name="state" placeholder="" size="30" type="text" value=<%=user.state %> required>
+<input id="state" maxlength="2" name="state" placeholder="" size="30" type="text" value=<%=user.state %> required>
 
 <label for="category1" >Category #1</label>
 
@@ -164,7 +164,7 @@
 <label for="category2" >Category #2</label>
 
 <span class="help-block">Enter a category that your business fits into</span>
-<input id="category2" maxlength="36" name="category2" placeholder="" size="30" type="text" value=<%=user.category2 %>>
+<input id="category2" maxlength="36" name="category2" placeholder="" size="30" type="text" value=<%=user.category2 %> required>
 
 <label for="description" >Description of Business</label>
 <span class="help-block">Enter a short description of your business.</span>

@@ -126,7 +126,7 @@
 
                 </div>
         <label for="photourl" >Photo URL</label>
-    <span class="help-block">Enter the URL of a photo you want as your profile picture.</span>
+    <span class="help-block">Enter the URL of a photo you want as your profile picture. This field is required.</span>
     <input id="photourl" maxlength="10000" name="photourl" placeholder="" size="30" type="text" value=<%=user.photo%>>
         
         
@@ -151,7 +151,7 @@
 <label for="state" >State</label>
 
 <span class="help-block">This field is required.Please use full state name.</span>
-<input id="state" maxlength="36" name="state" placeholder="" size="30" type="text" value=<%=user.state %> required>
+<input id="state" maxlength="2" name="state" placeholder="" size="30" type="text" value=<%=user.state %> required>
 
 <label for="newpassword" >New Password</label>
 

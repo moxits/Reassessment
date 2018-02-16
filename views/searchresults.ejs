@@ -69,9 +69,9 @@
     <div class="arrange_unit">
         <div class="card business-passport-card">
 <div class="card_photo">   
-<div class="photo-box photo-box--interactive photo-box--background" style="background-image: url(https://s3-media2.fl.yelpcdn.com/bphoto/uBHu1TbXnTbudFOHvd9uKg/l.jpg)">
-    <a href="/biz/king-almond-irvine" class="photo-box_link js-analytics-click" data-analytics-label="biz-photo">
-    <img alt="King Almond" class="photo-box-img" height="400" src="https://s3-media2.fl.yelpcdn.com/bphoto/uBHu1TbXnTbudFOHvd9uKg/l.jpg" srcset="https://s3-media2.fl.yelpcdn.com/bphoto/uBHu1TbXnTbudFOHvd9uKg/o.jpg 1.67x" width="600">
+<div class="photo-box photo-box--interactive photo-box--background" style="background-image: url(<%= newbusiness[i].photo %>)">
+    <a class="photo-box_link js-analytics-click" data-analytics-label="biz-photo">
+    <img alt="Business" class="photo-box-img" height="400" src="https://s3-media2.fl.yelpcdn.com/bphoto/uBHu1TbXnTbudFOHvd9uKg/l.jpg" srcset="https://s3-media2.fl.yelpcdn.com/bphoto/uBHu1TbXnTbudFOHvd9uKg/o.jpg 1.67x" width="600">
 
 </a>
 
@@ -94,7 +94,7 @@
 <div class="media-avatar">
             <div class="photo-box pb-90s">
     <a href="/view-business/<%= newbusiness[i].id %>" class="js-analytics-click" data-analytics-label="biz-photo">
-    <img alt="King Almond" class="photo-box-img" height="90" src="https://s3-media2.fl.yelpcdn.com/bphoto/uBHu1TbXnTbudFOHvd9uKg/90s.jpg" srcset="https://s3-media2.fl.yelpcdn.com/bphoto/uBHu1TbXnTbudFOHvd9uKg/ms.jpg 1.11x,https://s3-media2.fl.yelpcdn.com/bphoto/uBHu1TbXnTbudFOHvd9uKg/ls.jpg 2.78x,https://s3-media2.fl.yelpcdn.com/bphoto/uBHu1TbXnTbudFOHvd9uKg/120s.jpg 1.33x,https://s3-media2.fl.yelpcdn.com/bphoto/uBHu1TbXnTbudFOHvd9uKg/168s.jpg 1.87x,https://s3-media2.fl.yelpcdn.com/bphoto/uBHu1TbXnTbudFOHvd9uKg/258s.jpg 2.87x,https://s3-media2.fl.yelpcdn.com/bphoto/uBHu1TbXnTbudFOHvd9uKg/180s.jpg 2.00x" width="90">
+    <img alt="Business" class="photo-box-img" height="90" src="https://s3-media2.fl.yelpcdn.com/bphoto/uBHu1TbXnTbudFOHvd9uKg/90s.jpg" srcset="https://s3-media2.fl.yelpcdn.com/bphoto/uBHu1TbXnTbudFOHvd9uKg/ms.jpg 1.11x,https://s3-media2.fl.yelpcdn.com/bphoto/uBHu1TbXnTbudFOHvd9uKg/ls.jpg 2.78x,https://s3-media2.fl.yelpcdn.com/bphoto/uBHu1TbXnTbudFOHvd9uKg/120s.jpg 1.33x,https://s3-media2.fl.yelpcdn.com/bphoto/uBHu1TbXnTbudFOHvd9uKg/168s.jpg 1.87x,https://s3-media2.fl.yelpcdn.com/bphoto/uBHu1TbXnTbudFOHvd9uKg/258s.jpg 2.87x,https://s3-media2.fl.yelpcdn.com/bphoto/uBHu1TbXnTbudFOHvd9uKg/180s.jpg 2.00x" width="90">
 
 </a>
 
@@ -105,7 +105,7 @@
 </div>
 <div class="media-story">
     <div class="media-title clearfix">
-        <a class="biz-name js-analytics-click" data-analytics-label="biz-name" href="/biz/king-almond-irvine" data-hovercard-id="" ><span >King Almond</span></a>
+        <a class="biz-name js-analytics-click" data-analytics-label="biz-name" data-hovercard-id="" ><span >newbusiness[i].name</span></a>
 
 </div>
 <div class="biz-rating biz-rating-large clearfix" itemprop="aggregateRating" itemscope itemtype="http://schema.org/AggregateRating">
