@@ -14,13 +14,14 @@ router.get('/', function(req, res, next) {
 });
 
 router.post('/newreview',auth.requireLogin,function(req,res,next){
-  let business = '';
-  client.query(`UPDATE personal SET numreviews = numreviews+1 WHERE id='${req.session.user.id}'`)
-  .catch(err=>console.log(err))
+  let businessname = '';
+  client.query(`UPDATE personal SET numreviews = numreviews+1 WHERE id='${req.session.user.id}' RETURNING *`)
+  .then(result=>{
+    req.session.user = result[0][0];
+  }).catch(err=>console.log(err))
   client.query("SELECT * FROM business WHERE id=:id",
   {replacements:{id:req.body.businessid}})
   .then(result=>{
-    console.log(result[0][0].name);
     businessname = result[0][0].name;
     var agg = (result[0][0].rating*result[0][0].numreviews);
     var agg2 = (agg +parseFloat(req.body.rating));
@@ -28,11 +29,11 @@ router.post('/newreview',auth.requireLogin,function(req,res,next){
     client.query("UPDATE business SET numreviews = numreviews + 1,rating = :newrating WHERE id = :userid",
   {replacements:{newrating:newRating,userid:req.body.businessid}})
   .then(results=>{
+    client.query(`INSERT INTO reviews(userid,business,businessname,city,state,photo,name,day,content,rating) VALUES('${req.session.user.id}','${req.body.businessid}','${businessname}','${req.session.user.city}','${req.session.user.state}','${req.session.user.photo}','${req.session.user.name}',CURRENT_DATE,'${req.body.content}','${req.body.rating}') RETURNING *`)
+    .then(result=>{
+      res.send(result[0][0]);
+    }).catch(err=>console.log(err));
   }).catch(err=>console.log(err))
-  }).catch(err=>console.log(err));
-  client.query(`INSERT INTO reviews(userid,business,businessname,city,state,photo,name,day,content,rating) VALUES('${req.session.user.id}','${req.body.businessid}','${businessname}','${req.session.user.city}','${req.session.user.state}','${req.session.user.photo}','${req.session.user.name}',CURRENT_DATE,'${req.body.content}','${req.body.rating}') RETURNING *`)
-  .then(result=>{
-    res.send(result[0][0]);
   }).catch(err=>console.log(err));
 });
 router.post('/register',function(req,res){

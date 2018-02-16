@@ -18,6 +18,12 @@ router.get('/', function(req, res, next) {
     });
   }
 });
+router.get('/viewbookmarks',function(req,res,next){
+  client.query(`SELECT * FROM business WHERE ARRAY[id] <@ ARRAY[${req.session.user.bookmarks}]`)
+  .then(result=>{
+    res.render('bookmarks', { title: 'Express',user:req.session.user,newbusiness:result[0]});
+  });
+});
 router.get('/signup-page',function(req,res,next){
   res.render('signup');
 });
@@ -32,16 +38,30 @@ router.get('/business-profile',auth.requireLogin,function(req,res,next){
   res.render('businessprofilesettings',{user:req.session.user});
 });
 router.get('/personal',auth.requireLogin,function(req,res,next){
-  client.query(`SELECT * FROM reviews WHERE userid = '${req.session.user.id}'`)
-  .then(result=>{
-    res.render('personalprofile',{user:req.session.user,reviews:result[0]});
-  }).catch(err=>console.log(err));
+  if (req.session.user.type == 'business'){
+    client.query(`SELECT * FROM reviews WHERE business = '${req.session.user.id}'`)
+    .then(result=>{
+      res.render('businessprofile',{user:req.session.user,reviews:result[0]});
+    }).catch(err=>console.log(err));
+  }else{
+    client.query(`SELECT * FROM reviews WHERE userid = '${req.session.user.id}'`)
+    .then(result=>{
+      res.render('personalprofile',{user:req.session.user,reviews:result[0]});
+    }).catch(err=>console.log(err));
+  }
 });
 router.get('/business',auth.requireLogin,function(req,res,next){
+  if (req.session.user.type == 'personal'){
+    client.query(`SELECT * FROM reviews WHERE personal = '${req.session.user.id}'`)
+    .then(result=>{
+      res.render('personalprofile',{user:req.session.user,reviews:result[0]});
+    }).catch(err=>console.log(err));
+  }else{
   client.query(`SELECT * FROM reviews WHERE business = '${req.session.user.id}'`)
   .then(result=>{
     res.render('businessprofile',{user:req.session.user,reviews:result[0]});
   }).catch(err=>console.log(err));
+}
 });
 router.get('/writereview/:id',auth.requireLogin,function(req,res,next){
   client.query("SELECT * FROM business WHERE id = :id",
@@ -53,43 +73,43 @@ router.get('/writereview/:id',auth.requireLogin,function(req,res,next){
 router.get('/view-business/:id',function(req,res,next){
   var type='personal';
   var login;
-  var user;
   var bookmarked = 'false';
-  if (!req.session.user){
-    type == 'personal';
-    login = "false";
-  }else{
-    login = "true";
-    if (req.session.user.type == 'personal'){
-    
-      if (req.session.user.bookmarks.includes(req.params.id)){
-        bookmarked = 'true';
-      }
-      type ='personal';
-    }else{
-      type='business';
-    }
-  }
   client.query("SELECT * FROM business WHERE id = :id",
   {replacements:{id:req.params.id}})
   .then(result=>{
-    user = result[0][0];
+    var user = result[0][0];
+    client.query(`SELECT * FROM reviews WHERE business = '${req.params.id}'`)
+    .then(result=>{
+      if (!req.session.user){
+        type == 'personal';
+        login = "false";
+      }else{
+        login = "true";
+        if (req.session.user.type == 'personal'){
+          if (req.session.user.bookmarks.includes(parseInt(req.params.id))){
+            bookmarked = 'true';
+          }
+          type ='personal';
+        }else{
+          type='business';
+        }
+      }
+      console.log(bookmarked);
+      res.render('viewbusiness',{login:login,bookmarked:bookmarked,user:user,type:type,reviews:result[0]});
+    }).catch(err=>console.log(err))
   }).catch(err=>res.status(400).send(err));
-  client.query(`SELECT * FROM reviews WHERE business = '${req.params.id}'`)
-  .then(result=>{
-    res.render('viewbusiness',{login:login,bookmarked:bookmarked,user:user,type:type,reviews:result[0]});
-  }).catch(err=>console.log(err))
+ 
 });
 router.get('/view-personal/:id',function(req,res,next){
-  if (req.session.user.id == req.params.id){
-  client.query(`SELECT * FROM reviews WHERE userid = '${req.session.user.id}'`)
-  .then(result=>{
-    res.render('personalprofile',{user:req.session.user,reviews:result[0]});
-  }).catch(err=>console.log(err));
+  if (req.session.user){
+    if(req.session.user.id == req.params.id){
+      client.query(`SELECT * FROM reviews WHERE userid = '${req.session.user.id}'`)
+      .then(result=>{
+      res.render('personalprofile',{user:req.session.user,reviews:result[0]});
+      }).catch(err=>console.log(err));
+    }
   }
-  else{
   var login;
-  var user;
   if (!req.session.user){
     login = "false";
   }else{
@@ -97,12 +117,12 @@ router.get('/view-personal/:id',function(req,res,next){
   }
   client.query(`SELECT * FROM personal WHERE id = '${req.params.id}'`)
   .then(result=>{
-    user = result[0][0];
+    var user = result[0][0];
+    client.query(`SELECT * FROM reviews WHERE userid = '${req.params.id}'`)
+    .then(result=>{
+      res.render('viewpersonal',{login:login,user:user,reviews:result[0]});
+    }).catch(err=>console.log(err));
   }).catch(err=>console.log(err));
-  client.query(`SELECT * FROM reviews WHERE userid = '${req.params.id}'`)
-  .then(result=>{
-    res.render('viewpersonal',{login:login,user:user,reviews:result[0]});
-  }).catch(err=>console.log(err));}
 });
 router.get('/search/:searchterm',function(req,res,next){
   var query = `SELECT * FROM business WHERE name ILIKE '%${req.params.searchterm}%' OR category1 ILIKE '%test1%' OR category2 ILIKE '%$test2%'`;

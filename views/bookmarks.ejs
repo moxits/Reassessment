@@ -16,44 +16,12 @@
     <link rel="stylesheet" href="https://s3-media2.fl.yelpcdn.com/assets/srv0/svg_icons/1421d1203d09/assets/sprite.css">
 </noscript>
       
-<div id = "navbar-custom">
-    <nav  class="navbar navbar-expand-lg navbar-light bg-light">
-      <a class="navbar-brand" href="/">ReviewR</a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <form class="form-inline my-2 my-lg-0">
-        <button class="btn btn-outline-success my-2 my-sm-0"><a href="/">Search</a></button>
-      </form>
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav mr-auto">
-              <li class="nav-item active">
-                <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
-              </li>
-              <% if(user != 'none'){ %>
-              <li class="nav-item">
-                <a class="nav-link" href="/personal">Profile</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="/users/logout">Logout</a>
-              </li>
-              <% }else{ %>
-                <li class="nav-item">
-                    <a class="nav-link" href="/signup-page">Sign Up</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link" href="/login-page">Login</a>
-                  </li>
-            <% } %>
-            </ul>
-          </div>
-</nav>
-</div>
+<% include header.ejs %>
 <div class="y-container ">
     <div class="y-container_content">
         <div class="home-container home-container--first-top-short">
                    <div class="home-container_section home-container_section--top-long">
-    <h2 class="u-text-centered">ReviewR</h2>
+    <h2 class="u-text-centered">Your Bookmarked Businesses</h2>
     <div class="location-bar">
     <div class="tab-nav-container">
         <ul class="tab-nav js-tab-nav tab-nav--center js-tab-nav--center">
@@ -62,7 +30,6 @@
     </div>
 </div>
                     <div class="home-container_section js-hot-new-businesses-section">
-            <h3 class="explore-city_title">Search Results</h3>
 <div class="arrange arrange--wrap arrange--3-units arrange--30">
 <% for(var i=0; i<newbusiness.length; i++) {%>
 
@@ -127,13 +94,16 @@
 
 <div class="price-category">
         <span class="category-str-list">
-            <%= newbusiness[i].category1 %>,
-            <%= newbusiness[i].category2 %>
+        <%= newbusiness[i].category1 %>,<%= newbusiness[i].category2 %>
 </span>
 
 
 </div>
 
+<small>
+<span class="addr-city">Irvine, CA</span>
+
+</small>
 
 </div>
 </div>

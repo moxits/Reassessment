@@ -1,4 +1,5 @@
 var review;
+$(document).ready(function(){
 $('#submit-button').click(function(){
     review = {
         content:$('#description').val(),
@@ -6,4 +7,5 @@ $('#submit-button').click(function(){
         businessid:$('#id-tag').val()
     }
     console.log(review);
+});
 });
