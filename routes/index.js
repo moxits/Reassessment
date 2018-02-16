@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var client = require('../postgres.js');
+var axios = require('axios');
 //var currentClient = client.getClient();
 var passwordHash = require('password-hash');
 var auth = require('../utils/auth');
@@ -18,6 +19,50 @@ router.get('/', function(req, res, next) {
     });
   }
 });
+router.get('/populate',function(req,res,next){
+  var index = 0;
+  const businessnames = [
+    'GameStop','Whole Foods','Apple','Walgreens','Stacks','King Almond','Nike','Adidas','Chipotle','Taco Bell'
+  ]
+  const randomZip = [94536,92617,92697]
+  const randomCity = ['Fremont','Irvine','Los Angeles','Tustin']
+  const randomCategory = ['Food','Sports','Lunch','Breakfast','Electronics']
+  const randomAddress = ['63634 Arroyo Drive','38453 Garway Drive','4001 Mesa Road']
+  const randomDescription = ['This is sports retailer','This is a fast food chain',
+'This is breakfast food','This is an electronics retailer']
+  const randomPhoto = [
+    'https://cdn.thesolesupplier.co.uk/2017/08/NIKE-Logo.jpg',
+    'http://static.businessinsider.com/image/526e70dbecad040247237811-750.jpg',
+    'https://images-na.ssl-images-amazon.com/images/I/61%2B5oOddGTL.png'
+  ]
+  axios.get('https://randomuser.me/api/?inc=login,email&results=10')
+  .then(response=>{
+    response.data.results.forEach(function(userInfo){
+      let name = businessnames[index];
+      let zip = randomZip[Math.floor(Math.random() * randomZip.length)];
+      let city = randomCity[Math.floor(Math.random() * randomCity.length)];
+      let cat1 = randomCategory[Math.floor(Math.random() * randomCategory.length)];
+      let cat2 = randomCategory[Math.floor(Math.random() * randomCategory.length)];
+      let address = randomAddress[Math.floor(Math.random() * randomAddress.length)];
+      let description = randomDescription[Math.floor(Math.random() * randomDescription.length)];
+      let photo = randomPhoto[Math.floor(Math.random() * randomPhoto.length)];
+      index++;
+      client.query(`INSERT INTO business(type,name,email,password,zipcode,city,category1,category2,address,state,description,photo,phone,website) VALUES('business','${name}','${userInfo.email}','test','${zip}','${city}','${cat1}','${cat2}','${address}','CA','${description}','${photo}','(510)305-1843','google.com')`)
+      .catch(err=>console.log(err));
+    })
+    if (!req.session.user){
+      client.query("SELECT * FROM business ORDER BY id DESC LIMIT 3")
+      .then(result=>{
+        res.render('index', { title: 'Express',user:'none',newbusiness:result[0]});
+      }).catch(err=>console.log(err));
+    }else{
+      client.query("SELECT * FROM business ORDER BY id DESC LIMIT 3")
+      .then(result=>{
+        res.render('index', { title: 'Express',user:req.session.user,newbusiness:result[0]});
+      }).catch(err=>console.log(err));
+    }
+  })
+})
 router.get('/viewbookmarks',auth.requireLogin,function(req,res,next){
   if (req.session.user.type == 'personal'){
     if (req.session.user.bookmarks.length != 0){
